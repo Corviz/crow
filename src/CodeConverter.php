@@ -78,7 +78,7 @@ final class CodeConverter
     private function convertMethods(string &$templateCode): void
     {
         $templateCode = preg_replace_callback(
-            '/@(\w+)(\(((?:[^()]++|(\g<2>))*)\))?/m',
+            '/@(\w+)\s*(\(((?:[^()]++|(\g<2>))*)\))?/m',
             function($match){
                 if (isset($this->methods[$match[1]])) {
                     /* @var $method Method */
