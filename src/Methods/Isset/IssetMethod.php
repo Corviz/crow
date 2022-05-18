@@ -1,6 +1,6 @@
 <?php
 
-namespace Corviz\Crow\Methods\Unless;
+namespace Corviz\Crow\Methods\Isset;
 
 use Corviz\Crow\Method;
 
