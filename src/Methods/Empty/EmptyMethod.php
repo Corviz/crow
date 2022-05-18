@@ -19,6 +19,13 @@ class EmptyMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        return "<?php if (empty($parameters)) { ?>";
+        $code = "<?php if (empty($parameters)) { ?>";
+
+        if (isset($GLOBALS['crowte_forelse'])) {
+            $code = "<?php }} else { ?>";
+            unset($GLOBALS['crowte_forelse']);
+        }
+
+        return $code;
     }
 }
