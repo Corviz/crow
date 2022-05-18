@@ -1,0 +1,15 @@
+{
+    "name": "corviz/crow",
+    "description": "Php template engine",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Corviz\\Crow\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8",
+        "ext-mbstring": "*"
+    }
+}
