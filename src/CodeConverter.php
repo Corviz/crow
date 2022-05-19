@@ -31,6 +31,7 @@ final class CodeConverter
         $this->convertComments($templateCode);
         $this->convertEscaped($templateCode);
         $this->convertUnescaped($templateCode);
+        while($this->convertMethods($templateCode, 'extends|include'));
         $this->convertMethods($templateCode);
 
         return $templateCode;
@@ -87,12 +88,13 @@ final class CodeConverter
 
     /**
      * @param string $templateCode
-     * @return void
+     * @return int
      */
-    private function convertMethods(string &$templateCode): void
+    private function convertMethods(string &$templateCode, string $tag = '\w+'): int
     {
+        $count = 0;
         $templateCode = preg_replace_callback(
-            '/@(\w+)\s*(\(((?:[^()]++|(\g<2>))*)\))?/m',
+            '/@('.$tag.')\s*(\(((?:[^()]++|(\g<2>))*)\))?/m',
             function($match){
                 if (isset($this->methods[$match[1]])) {
                     /* @var $method Method */
@@ -103,7 +105,10 @@ final class CodeConverter
 
                 return $match[0];
             },
-            $templateCode
+            $templateCode,
+            count: $count
         );
+
+        return $count;
     }
 }

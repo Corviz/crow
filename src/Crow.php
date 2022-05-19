@@ -34,6 +34,7 @@ class Crow
         Methods\ContinueMethod::class,
         Methods\DisabledMethod::class,
         Methods\ExtendsMethod::class,
+        Methods\IncludeMethod::class,
         Methods\SelectedMethod::class,
         Methods\YieldMethod::class,
     ];
@@ -63,13 +64,9 @@ class Crow
     public static function render(string $file, array $data = [], ?string $path = null)
     {
         $code = self::getPhpCode($file, $path);
+        self::minify($code);
 
         eval("?>$code<?php");
-
-        if (!empty(self::$renderQueue)) {
-            $tpl = array_pop(self::$renderQueue);
-            self::render($tpl['file'], path: $tpl['path']);
-        }
     }
 
     /**
@@ -81,9 +78,19 @@ class Crow
      */
     public static function getPhpCode(string $file, ?string $path = null): string
     {
-        return self::getConverter()->toPhp(
+        $code = self::getConverter()->toPhp(
             self::getTemplateContents($file, $path)
         );
+
+        while (!empty(self::$renderQueue)) {
+            $tpl = array_pop(self::$renderQueue);
+
+            $code .= self::getConverter()->toPhp(
+                self::getTemplateContents($tpl['file'], $tpl['path'])
+            );
+        }
+
+        return $code;
     }
 
     /**
@@ -93,7 +100,7 @@ class Crow
      * @return string
      * @throws Exception
      */
-    public static function getTemplateContents(string $file, ?string $path = null)
+    public static function getTemplateContents(string $file, ?string $path = null): string
     {
         return self::getLoader()->load($file, $path);
     }
@@ -155,5 +162,17 @@ class Crow
         }
 
         return self::$loader;
+    }
+
+    /**
+     * @param string $code
+     * @return string
+     */
+    private static function minify(string &$code): string
+    {
+        $code = str_replace(["\t", "\n", "\r"], ' ', $code);
+        $code = preg_replace('/\s{2,}/m', '', $code);
+
+        return trim($code);
     }
 }
