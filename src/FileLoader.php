@@ -23,15 +23,14 @@ class FileLoader
      *
      * @param string $file
      * @param string|null $path
-     * @param string|null $extension
      *
      * @return string
      * @throws Exception
      */
-    public function load(string $file, string $path = null, string $extension = null): string
+    public function load(string $file, string $path = null): string
     {
         $path = $path ?? $this->defaultPath ?? '';
-        $extension = $extension ?? $this->defaultExtension ?? '';
+        $extension = $this->defaultExtension ?? '';
 
         $filename = "$path/{$file}{$extension}";
 

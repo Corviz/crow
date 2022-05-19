@@ -28,6 +28,7 @@ final class CodeConverter
      */
     public function toPhp(string $templateCode): string
     {
+        $this->convertComments($templateCode);
         $this->convertEscaped($templateCode);
         $this->convertUnescaped($templateCode);
         $this->convertMethods($templateCode);
@@ -75,6 +76,19 @@ final class CodeConverter
      * @param string $templateCode
      * @return void
      */
+    private function convertComments(string &$templateCode): void
+    {
+        $templateCode = preg_replace(
+            '/{{\-\-((?:(?!\-\-}})\S|\s)+)--}}/',
+            '<?php /** $1 */ ?>',
+            $templateCode
+        );
+    }
+
+    /**
+     * @param string $templateCode
+     * @return void
+     */
     private function convertMethods(string &$templateCode): void
     {
         $templateCode = preg_replace_callback(
@@ -91,13 +105,5 @@ final class CodeConverter
             },
             $templateCode
         );
-    }
-
-    public function __construct()
-    {
-        $this->addMethod(Methods\If\IfMethod::create());
-        $this->addMethod(Methods\If\ElseMethod::create());
-        $this->addMethod(Methods\If\ElseIfMethod::create());
-        $this->addMethod(Methods\If\EndIfMethod::create());
     }
 }
