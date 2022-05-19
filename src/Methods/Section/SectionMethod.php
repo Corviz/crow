@@ -19,6 +19,14 @@ class SectionMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        return "<?php \Corviz\Crow\SectionsManager::addSection($parameters, function(){ ?>";
+        eval("\$p = [$parameters];");
+        $code = "<?php \Corviz\Crow\SectionsManager::addSection('{$p[0]}', function(){ ?>";
+
+        if (count($p) > 1) {
+            $code .= $p[1];
+            $code .= "<?php }); ?>";
+        }
+
+        return $code;
     }
 }
