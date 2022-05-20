@@ -7,8 +7,14 @@ use Exception;
 
 class Crow
 {
+    /**
+     *
+     */
     public const DEFAULT_EXTENSION = '.crow.php';
 
+    /**
+     *
+     */
     private const DEFAULT_METHODS = [
         Methods\Empty\EmptyMethod::class,
         Methods\Empty\EndEmptyMethod::class,
@@ -45,6 +51,11 @@ class Crow
     private static ?string $cacheFolder = null;
 
     /**
+     * @var array
+     */
+    private static array $dataKeys = [];
+
+    /**
      * @var FileLoader
      */
     private static ?FileLoader $loader = null;
@@ -74,21 +85,33 @@ class Crow
     public static function render(string $file, array $data = [], ?string $path = null)
     {
         $cacheFile = self::$cacheFolder.'/'.$file.'.cache.php';
+        self::$dataKeys = array_keys($data);
+
         if (
             is_null(self::$cacheFolder)
             || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
         ) {
-            $code = self::getPhpCode($file, $path);
-            self::getComponentConverter()->toPhp($code);
+            $__code = self::getPhpCode($file, $path);
+            self::getComponentConverter()->toPhp($__code);
 
             if (!is_null(self::$cacheFolder)) {
-                file_put_contents($cacheFile, $code);
+                file_put_contents($cacheFile, $__code);
             }
 
-            eval("?>$code<?php");
+            extract($data);
+
+            eval("?>$__code<?php");
         } else {
             require $cacheFile;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public static function getDataKeys(): array
+    {
+        return self::$dataKeys;
     }
 
     /**
