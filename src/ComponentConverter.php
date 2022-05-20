@@ -8,7 +8,14 @@ class ComponentConverter
 {
     use SelfCreate;
 
+    /**
+     * @var string
+     */
     private string $templatesPath;
+
+    /**
+     * @var string
+     */
     private string $componentsNamespace;
 
     /**
@@ -56,11 +63,14 @@ class ComponentConverter
                         $code .= "<?php ";
                         $code .= "\$__component = $componentClassName::create()";
                         $code .= "->setAttrs($attrsArrayCode)";
+                        $code .= "->setTemplatesPath('{$this->templatesPath}')";
                         if ($contents) {
                             $code .= "->setContents(<<<'EOT'{$contents}EOT)";
                         }
                         $code .= "->render();";
                         $code .= " ?>";
+                    } else {
+                        $code .= "Component class not found: $componentClassName";
                     }
 
                     return $code;

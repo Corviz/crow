@@ -77,5 +77,19 @@ abstract class Component
         return $this;
     }
 
+    /**
+     * @return void
+     */
     abstract public function render(): void;
+
+    /**
+     * @param string $file
+     * @param array $data
+     *
+     * @return void
+     */
+    protected function view(string $file, array $data = []): void
+    {
+        Crow::render($file, $data, $this->templatesPath);
+    }
 }
