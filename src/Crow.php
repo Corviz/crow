@@ -40,6 +40,11 @@ class Crow
     ];
 
     /**
+     * @var string|null
+     */
+    private static ?string $cacheFolder = null;
+
+    /**
      * @var FileLoader
      */
     private static ?FileLoader $loader = null;
@@ -63,10 +68,21 @@ class Crow
      */
     public static function render(string $file, array $data = [], ?string $path = null)
     {
-        $code = self::getPhpCode($file, $path);
-        self::minify($code);
+        $cacheFile = self::$cacheFolder.'/'.$file.'.cache.php';
+        if (
+            is_null(self::$cacheFolder)
+            || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
+        ) {
+            $code = self::getPhpCode($file, $path);
 
-        eval("?>$code<?php");
+            if (!is_null(self::$cacheFolder)) {
+                file_put_contents($cacheFile, $code);
+            }
+
+            eval("?>$code<?php");
+        } else {
+            require $cacheFile;
+        }
     }
 
     /**
@@ -90,6 +106,8 @@ class Crow
             );
         }
 
+        self::minify($code);
+
         return $code;
     }
 
@@ -103,6 +121,14 @@ class Crow
     public static function getTemplateContents(string $file, ?string $path = null): string
     {
         return self::getLoader()->load($file, $path);
+    }
+
+    /**
+     * @param string|null $cacheFolder
+     */
+    public static function setCacheFolder(?string $cacheFolder): void
+    {
+        self::$cacheFolder = $cacheFolder;
     }
 
     /**
