@@ -2,9 +2,12 @@
 
 namespace Corviz\Crow;
 
+use Corviz\Crow\Traits\SelfCreate;
+
 class ComponentConverter
 {
-    private int $componentsCount = 0;
+    use SelfCreate;
+
     private string $templatesPath;
     private string $componentsNamespace;
 
@@ -24,7 +27,7 @@ class ComponentConverter
      */
     public function setComponentsNamespace(string $componentsNamespace): ComponentConverter
     {
-        $this->componentsNamespace = $componentsNamespace;
+        $this->componentsNamespace = trim($componentsNamespace, '\\');
         return $this;
     }
 
@@ -40,15 +43,27 @@ class ComponentConverter
             $template = preg_replace_callback(
                 '/<(x-(\w|-)+)([^\/>]*?)(\/>|>(.*?)<\/\g<1>>)/s',
                 function($match) {
-                    $this->componentsCount++;
+                    $code = "";
                     $componentName = substr($match[1], 2);
-                    $componentClassName = $this->dashToUpperCamelCase($componentName);
-                    $attrs = $this->attrsStringToArrayCode($match[3] ?? null);
+                    $componentClassName =
+                        '\\'.$this->componentsNamespace
+                        .'\\'. $this->dashToUpperCamelCase($componentName).'Component';
                     $contents = $match[5] ?? null;
 
-                    $attrsVariableName = '$_componentAttrs'.$this->componentsCount;
+                    $attrsArrayCode = $this->attrsStringToArrayCode($match[3] ?? null);
 
-                    return "$componentName: ".$this->attrsStringToArrayCode($attrs);
+                    if (class_exists($componentClassName)) {
+                        $code .= "<?php ";
+                        $code .= "\$__component = $componentClassName::create()";
+                        $code .= "->setAttrs($attrsArrayCode)";
+                        if ($contents) {
+                            $code .= "->setContents(<<<'EOT'{$contents}EOT)";
+                        }
+                        $code .= "->render();";
+                        $code .= " ?>";
+                    }
+
+                    return $code;
                 },
                 $template,
                 count: $count
@@ -85,42 +100,33 @@ class ComponentConverter
      */
     private function attrsStringToArrayCode(?string $componentAttrs): string
     {
-//        $re = '/((:?)((\w|-)+))(="((?:[^\\\\"\']++|\g<4>)(.*?))")?/s';
-//        $str = ' nome="Abc" :data-atual="!$teste || date(\'Y-m-d\') && $valid == true" teste';
-//
-//        preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
-
-// Print the entire match result
-        //var_dump($matches);
-
-//        return print_r($matches, true);
         $code = '[';
 
         if (!is_null($componentAttrs)) {
 
-            $re = '/((:?)((\w|-)+))(="((?:[^\\\\"]++|\g<4>)(.*?))")?/s';
-            preg_match_all($re, $componentAttrs, $matches, PREG_SET_ORDER, 0);
-            //preg_match_all('/((:?)((\w|-)+))(="((?:[^\\\\"\']++|\g<4>)(.*?))")?/s', $componentAttrs, $matches, PREG_SET_ORDER, 0);
+            $re = '/((:?)((\w|-)+))(="((?:[^"]++|\g<4>)(.*?))")?/s';
+            $str = ' nome="Abc" :data-atual="!$teste || date(\'Y-m-d\') && $valid == true" teste';
 
-            $code .= print_r($matches, true);
-            //for ($i = 0; $i < count($matches[0]); $i++) {
-//                $index = $matches[3][$i];
-//                $value = 'true';
-//                $isString = empty($matches[2][$i]);
-//
-//                if (!empty($matches[6][$i])) {
-//                    $value = $matches[6][$i];
-//
-//                    if ($isString) {
-//                        $value = "'$value'";
-//                    }
-//                }
-//
-//                //$code .= "'$index' => $value,";
-            //}
+            preg_match_all($re, $componentAttrs, $matches, PREG_SET_ORDER);
+
+            foreach ($matches as $match) {
+                $index = $this->dashToCamelCase($match[3]);
+                $value = 'true';
+                $isString = empty($match[2]);
+
+                if (!empty($match[6])) {
+                    $value = $match[6];
+
+                    if ($isString) {
+                        $value = "'$value'";
+                    }
+                }
+
+                $code .= "'$index' => $value,";
+            }
         }
 
-        $code .= '];';
+        $code .= ']';
 
         return $code;
     }
