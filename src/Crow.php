@@ -52,7 +52,12 @@ class Crow
     /**
      * @var CodeConverter
      */
-    private static ?CodeConverter $converter = null;
+    private static ?CodeConverter $codeConverter = null;
+
+    /**
+     * @var ComponentConverter|null
+     */
+    private static ?ComponentConverter $componentConverter = null;
 
     /**
      * @var array
@@ -74,6 +79,7 @@ class Crow
             || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
         ) {
             $code = self::getPhpCode($file, $path);
+            self::getComponentConverter()->toPhp($code);
 
             if (!is_null(self::$cacheFolder)) {
                 file_put_contents($cacheFile, $code);
@@ -94,14 +100,14 @@ class Crow
      */
     public static function getPhpCode(string $file, ?string $path = null): string
     {
-        $code = self::getConverter()->toPhp(
+        $code = self::getCodeConverter()->toPhp(
             self::getTemplateContents($file, $path)
         );
 
         while (!empty(self::$renderQueue)) {
             $tpl = array_pop(self::$renderQueue);
 
-            $code .= self::getConverter()->toPhp(
+            $code .= self::getCodeConverter()->toPhp(
                 self::getTemplateContents($tpl['file'], $tpl['path'])
             );
         }
@@ -129,6 +135,25 @@ class Crow
     public static function setCacheFolder(?string $cacheFolder): void
     {
         self::$cacheFolder = $cacheFolder;
+    }
+
+    /**
+     * @param string $namespace
+     * @return void
+     */
+    public static function setComponentsNamespace(string $namespace)
+    {
+        self::getComponentConverter()->setComponentsNamespace($namespace);
+
+    }
+
+    /**
+     * @param string $path
+     * @return void
+     */
+    public static function setComponentsTemplatesPath(string $path)
+    {
+        self::getComponentConverter()->setTemplatesPath($path);
     }
 
     /**
@@ -163,18 +188,30 @@ class Crow
     /**
      * @return CodeConverter
      */
-    private static function getConverter(): CodeConverter
+    private static function getCodeConverter(): CodeConverter
     {
-        if (!self::$converter){
-            self::$converter = new CodeConverter();
+        if (!self::$codeConverter){
+            self::$codeConverter = new CodeConverter();
 
             //Register all default methods
             foreach (self::DEFAULT_METHODS as $m) {
-                self::$converter->addMethod([$m, 'create']());
+                self::$codeConverter->addMethod([$m, 'create']());
             }
         }
 
-        return self::$converter;
+        return self::$codeConverter;
+    }
+
+    /**
+     * @return ComponentConverter
+     */
+    private static function getComponentConverter(): ComponentConverter
+    {
+        if (!self::$componentConverter){
+            self::$componentConverter = new ComponentConverter();
+        }
+
+        return self::$componentConverter;
     }
 
     /**
