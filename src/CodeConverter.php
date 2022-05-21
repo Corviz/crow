@@ -2,8 +2,6 @@
 
 namespace Corviz\Crow;
 
-use Corviz\Crow\Methods;
-
 final class CodeConverter
 {
     /**
