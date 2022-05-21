@@ -9,11 +9,6 @@ final class CodeConverter
     /**
      * @var array
      */
-    private array $components = [];
-
-    /**
-     * @var array
-     */
     private array $methods = [];
 
     /**
