@@ -28,11 +28,11 @@ final class CodeConverter
      */
     public function toPhp(string $templateCode): string
     {
+        while($this->convertMethods($templateCode, 'extends|include'));
+        while($this->convertMethods($templateCode));
         $this->convertComments($templateCode);
         $this->convertEscaped($templateCode);
         $this->convertUnescaped($templateCode);
-        while($this->convertMethods($templateCode, 'extends|include'));
-        $this->convertMethods($templateCode);
 
         return $templateCode;
     }

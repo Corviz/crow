@@ -22,5 +22,6 @@ class IncludeMethod extends Method
     {
         eval("\$code = \Corviz\Crow\Crow::getTemplateContents($parameters);");
         return $code;
+//        return '';
     }
 }
