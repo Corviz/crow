@@ -91,16 +91,16 @@ class Crow
             is_null(self::$cacheFolder)
             || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
         ) {
-            $__code = self::getPhpCode($file, $path);
-            self::getComponentConverter()->toPhp($__code);
+            $__crowTemplateCode = self::getPhpCode($file, $path);
+            self::getComponentConverter()->toPhp($__crowTemplateCode);
 
             if (!is_null(self::$cacheFolder)) {
-                file_put_contents($cacheFile, $__code);
+                file_put_contents($cacheFile, $__crowTemplateCode);
             }
 
             extract($data);
 
-            eval("?>$__code<?php");
+            eval("?>$__crowTemplateCode<?php");
         } else {
             require $cacheFile;
         }
@@ -254,11 +254,10 @@ class Crow
      * @param string $code
      * @return string
      */
-    private static function minify(string &$code): string
+    private static function minify(string &$code): void
     {
         $code = str_replace(["\t", "\n", "\r"], ' ', $code);
         $code = preg_replace('/\s{2,}/m', '', $code);
-
-        return trim($code);
+        $code = trim($code);
     }
 }
