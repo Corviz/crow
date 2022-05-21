@@ -9,14 +9,6 @@ class ForelseMethod extends Method
     /**
      * @inheritDoc
      */
-    public function getSignature(): string
-    {
-        return 'forelse';
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function toPhpCode(?string $parameters = null): string
     {
         $matches = [];

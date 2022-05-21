@@ -16,33 +16,34 @@ class Crow
      *
      */
     private const DEFAULT_METHODS = [
-        Methods\Empty\EmptyMethod::class,
-        Methods\Empty\EndEmptyMethod::class,
-        Methods\For\ForMethod::class,
-        Methods\For\EndForMethod::class,
-        Methods\Foreach\ForeachMethod::class,
-        Methods\Foreach\EndForeachMethod::class,
-        Methods\Forelse\ForelseMethod::class,
-        Methods\Forelse\EndforelseMethod::class,
-        Methods\If\IfMethod::class,
-        Methods\If\ElseMethod::class,
-        Methods\If\ElseIfMethod::class,
-        Methods\If\EndIfMethod::class,
-        Methods\Php\PhpMethod::class,
-        Methods\Php\EndPhpMethod::class,
-        Methods\Section\SectionMethod::class,
-        Methods\Section\EndSectionMethod::class,
-        Methods\Unless\UnlessMethod::class,
-        Methods\Unless\EndUnlessMethod::class,
-        Methods\Unless\EndUnlessMethod::class,
-        Methods\BreakMethod::class,
-        Methods\CheckedMethod::class,
-        Methods\ContinueMethod::class,
-        Methods\DisabledMethod::class,
-        Methods\ExtendsMethod::class,
-        Methods\IncludeMethod::class,
-        Methods\SelectedMethod::class,
-        Methods\YieldMethod::class,
+        'empty' => Methods\Empty\EmptyMethod::class,
+        'endempty' => Methods\Empty\EndEmptyMethod::class,
+        'for' => Methods\For\ForMethod::class,
+        'endfor' => Methods\For\EndForMethod::class,
+        'foreach' => Methods\Foreach\ForeachMethod::class,
+        'endforeach' => Methods\Foreach\EndForeachMethod::class,
+        'forelse' => Methods\Forelse\ForelseMethod::class,
+        'endforelse' => Methods\Forelse\EndforelseMethod::class,
+        'if' => Methods\If\IfMethod::class,
+        'else' => Methods\If\ElseMethod::class,
+        'elseif' => Methods\If\ElseIfMethod::class,
+        'endif' => Methods\If\EndIfMethod::class,
+        'isset' => Methods\Isset\IssetMethod::class,
+        'endisset' => Methods\Isset\EndIssetMethod::class,
+        'php' => Methods\Php\PhpMethod::class,
+        'endphp' => Methods\Php\EndPhpMethod::class,
+        'section' => Methods\Section\SectionMethod::class,
+        'endsection' => Methods\Section\EndSectionMethod::class,
+        'unless' => Methods\Unless\UnlessMethod::class,
+        'endunless' => Methods\Unless\EndUnlessMethod::class,
+        'break' => Methods\BreakMethod::class,
+        'checked' => Methods\CheckedMethod::class,
+        'continue' => Methods\ContinueMethod::class,
+        'disabled' => Methods\DisabledMethod::class,
+        'extends' => Methods\ExtendsMethod::class,
+        'include' => Methods\IncludeMethod::class,
+        'selected' => Methods\SelectedMethod::class,
+        'yield' => Methods\YieldMethod::class,
     ];
 
     /**
@@ -217,8 +218,8 @@ class Crow
             self::$codeConverter = new CodeConverter();
 
             //Register all default methods
-            foreach (self::DEFAULT_METHODS as $m) {
-                self::$codeConverter->addMethod([$m, 'create']());
+            foreach (self::DEFAULT_METHODS as $m => $c) {
+                self::$codeConverter->addMethod($m, $c);
             }
         }
 

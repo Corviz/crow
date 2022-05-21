@@ -9,14 +9,6 @@ class YieldMethod extends Method
     /**
      * @inheritDoc
      */
-    public function getSignature(): string
-    {
-        return 'yield';
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function toPhpCode(?string $parameters = null): string
     {
         return "<?php \Corviz\Crow\SectionsManager::renderSection($parameters); ?>";

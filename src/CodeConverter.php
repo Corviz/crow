@@ -33,12 +33,14 @@ final class CodeConverter
     }
 
     /**
-     * @param Method $method
+     * @param string $method
+     * @param string $class
+     *
      * @return void
      */
-    public function addMethod(Method $method): void
+    public function addMethod(string $method, string $class): void
     {
-        $this->methods[$method->getSignature()] = $method;
+        $this->methods[$method] = ['c' => $class, 'i' => null];
     }
 
     /**
@@ -92,8 +94,12 @@ final class CodeConverter
             '/@('.$tag.')\s*(\(((?:[^()]++|(\g<2>))*)\))?/m',
             function($match){
                 if (isset($this->methods[$match[1]])) {
+                    if (!$this->methods[$match[1]]['i']) {
+                        $this->methods[$match[1]]['i'] = $this->methods[$match[1]]['c']::create();
+                    }
+
                     /* @var $method Method */
-                    $method = $this->methods[$match[1]];
+                    $method = $this->methods[$match[1]]['i'];
 
                     return $method->toPhpCode($match[3] ?? null);
                 }

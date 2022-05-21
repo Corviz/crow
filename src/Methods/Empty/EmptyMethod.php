@@ -9,14 +9,6 @@ class EmptyMethod extends Method
     /**
      * @inheritDoc
      */
-    public function getSignature(): string
-    {
-        return 'empty';
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function toPhpCode(?string $parameters = null): string
     {
         $code = "<?php if (empty($parameters)) { ?>";

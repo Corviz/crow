@@ -10,14 +10,6 @@ class ExtendsMethod extends Method
     /**
      * @inheritDoc
      */
-    public function getSignature(): string
-    {
-        return 'extends';
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function toPhpCode(?string $parameters = null): string
     {
         eval('$parameters = '.$parameters.';');

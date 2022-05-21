@@ -9,14 +9,6 @@ class ForMethod extends Method
     /**
      * @inheritDoc
      */
-    public function getSignature(): string
-    {
-        return 'for';
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function toPhpCode(?string $parameters = null): string
     {
         return "<?php for($parameters) { ?>";
