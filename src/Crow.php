@@ -90,13 +90,17 @@ class Crow
      */
     public static function render(string $file, array $data = [], ?string $path = null)
     {
-        $cacheFile = self::$cacheFolder.'/'.$file.'.cache.php';
+        $cacheFile = self::$cacheFolder.(self::data('componentRendering') ? '/components' : '').'/'.$file.'.cache.php';
         self::$dataKeys = array_keys($data);
 
         if (
             is_null(self::$cacheFolder)
             || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
         ) {
+            if (!is_null(self::$cacheFolder) && !is_dir(basename($cacheFile))) {
+                mkdir(basename($cacheFile), recursive: true);
+            }
+
             $__crowTemplateCode = self::getPhpCode($file, $path);
             self::getComponentConverter()->toPhp($__crowTemplateCode);
 
@@ -227,9 +231,9 @@ class Crow
      * @param string $extension
      * @return void
      */
-    public static function setDefaultExtension(string $extension)
+    public static function setExtension(string $extension)
     {
-        self::getLoader()->setDefaultExtension($extension);
+        self::getLoader()->setExtension($extension);
     }
 
     /**
@@ -279,7 +283,7 @@ class Crow
     {
         if (!self::$loader) {
             self::$loader = FileLoader::create()
-                ->setDefaultExtension(self::DEFAULT_EXTENSION);
+                ->setExtension(self::DEFAULT_EXTENSION);
         }
 
         return self::$loader;

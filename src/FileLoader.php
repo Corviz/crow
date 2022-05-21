@@ -17,7 +17,7 @@ class FileLoader
     /**
      * @var string|null
      */
-    private ?string $defaultExtension = null;
+    private ?string $extension = null;
 
     /**
      *
@@ -30,7 +30,7 @@ class FileLoader
     public function load(string $file, string $path = null): string
     {
         $path = $path ?? $this->defaultPath ?? '';
-        $extension = $this->defaultExtension ?? '';
+        $extension = $this->extension ?? '';
 
         $filename = "$path/{$file}{$extension}";
 
@@ -52,12 +52,12 @@ class FileLoader
     }
 
     /**
-     * @param string|null $defaultExtension
+     * @param string|null $extension
      * @return FileLoader
      */
-    public function setDefaultExtension(?string $defaultExtension): FileLoader
+    public function setExtension(?string $extension): FileLoader
     {
-        $this->defaultExtension = $defaultExtension;
+        $this->extension = $extension;
         return $this;
     }
 }
