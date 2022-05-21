@@ -2,6 +2,7 @@
 
 namespace Corviz\Crow\Methods\Forelse;
 
+use Corviz\Crow\Crow;
 use Corviz\Crow\Method;
 
 class ForelseMethod extends Method
@@ -19,7 +20,7 @@ class ForelseMethod extends Method
         $code .= "if (!empty($v)) { ";
         $code .= "foreach($parameters) { ?>";
 
-        $GLOBALS['crowte_forelse'] = true;
+        Crow::data('forelse', true);
 
         return $code;
     }

@@ -52,7 +52,7 @@ final class CodeConverter
     {
         $templateCode = preg_replace(
             '/{{(.*?)}}/',
-            '<?php echo htmlentities($1) ?>',
+            '<?php echo htmlentities(($1) ?? null) ?>',
             $templateCode
         );
     }
@@ -65,7 +65,7 @@ final class CodeConverter
     {
         $templateCode = preg_replace(
             '/{!!(.*?)!!}/',
-            '<?php echo $1 ?>',
+            '<?php echo ($1) ?? null ?>',
             $templateCode
         );
     }

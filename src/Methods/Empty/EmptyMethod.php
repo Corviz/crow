@@ -2,6 +2,7 @@
 
 namespace Corviz\Crow\Methods\Empty;
 
+use Corviz\Crow\Crow;
 use Corviz\Crow\Method;
 
 class EmptyMethod extends Method
@@ -13,9 +14,9 @@ class EmptyMethod extends Method
     {
         $code = "<?php if (empty($parameters)) { ?>";
 
-        if (isset($GLOBALS['crowte_forelse'])) {
+        if (Crow::data('forelse')) {
             $code = "<?php }} else { ?>";
-            unset($GLOBALS['crowte_forelse']);
+            Crow::removeData('forelse');
         }
 
         return $code;

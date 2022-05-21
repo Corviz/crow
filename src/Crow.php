@@ -54,6 +54,11 @@ class Crow
     /**
      * @var array
      */
+    private static array $data = [];
+
+    /**
+     * @var array
+     */
     private static array $dataKeys = [];
 
     /**
@@ -105,6 +110,35 @@ class Crow
         } else {
             require $cacheFile;
         }
+    }
+
+    /**
+     * @param string|null $key
+     * @param mixed|null $value
+     *
+     * @return mixed
+     */
+    public static function data(string $key = null, mixed $value = null): mixed
+    {
+        if (is_null($key) && is_null($value))
+            return self::$data;
+
+        if (is_null($value))
+            return self::$data[$key] ?? null;
+
+        self::$data[$key] = $value;
+        return null;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return void
+     */
+    public static function removeData(string $key): void
+    {
+        if (isset(self::$data[$key]))
+            unset(self::$data[$key]);
     }
 
     /**

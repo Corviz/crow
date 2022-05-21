@@ -90,6 +90,12 @@ abstract class Component
      */
     protected function view(string $file, array $data = []): void
     {
+        Crow::data('componentRendering', (Crow::data('componentRendering') ?? 0) + 1);
         Crow::render($file, $data, $this->templatesPath);
+        Crow::data('componentRendering', Crow::data('componentRendering') - 1);
+
+        if (Crow::data('componentRendering') <= 0) {
+            Crow::removeData('componentRendering');
+        }
     }
 }
