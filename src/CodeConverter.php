@@ -54,7 +54,7 @@ final class CodeConverter
     private function convertEscaped(string &$templateCode): void
     {
         $templateCode = preg_replace(
-            '/{{((?:(?!}})\S|\s)+)}}/',
+            '/{{(.*?)}}/',
             '<?php echo htmlentities($1) ?>',
             $templateCode
         );
@@ -67,7 +67,7 @@ final class CodeConverter
     private function convertUnescaped(string &$templateCode): void
     {
         $templateCode = preg_replace(
-            '/{!!((?:(?!!!})\S|\s)+)!!}/',
+            '/{!!(.*?)!!}/',
             '<?php echo $1 ?>',
             $templateCode
         );
@@ -80,7 +80,7 @@ final class CodeConverter
     private function convertComments(string &$templateCode): void
     {
         $templateCode = preg_replace(
-            '/{{\-\-((?:(?!\-\-}})\S|\s)+)--}}/',
+            '/{{--(.*?)--}}/',
             '<?php /** $1 */ ?>',
             $templateCode
         );
