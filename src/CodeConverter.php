@@ -14,11 +14,6 @@ final class CodeConverter
     /**
      * @var array
      */
-    private array $filters = [];
-
-    /**
-     * @var array
-     */
     private array $methods = [];
 
     /**
