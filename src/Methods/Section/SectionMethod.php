@@ -31,7 +31,7 @@ class SectionMethod extends Method
     {
         $use = '';
 
-        $dataKeys = Crow::getDataKeys();
+        $dataKeys = Crow::data('dataKeys') ?? [];
         if (!empty($dataKeys)) {
             $use = 'use ('.implode(',', array_map(fn($k) => "&$$k", $dataKeys)).')';
         }

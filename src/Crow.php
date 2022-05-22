@@ -57,11 +57,6 @@ class Crow
     private static array $data = [];
 
     /**
-     * @var array
-     */
-    private static array $dataKeys = [];
-
-    /**
      * @var FileLoader
      */
     private static ?FileLoader $loader = null;
@@ -91,16 +86,12 @@ class Crow
     public static function render(string $file, array $data = [], ?string $path = null)
     {
         $cacheFile = self::$cacheFolder.(self::data('componentRendering') ? '/components' : '').'/'.$file.'.cache.php';
-        self::$dataKeys = array_keys($data);
+        self::data('dataKeys', array_keys($data));
 
         if (
             is_null(self::$cacheFolder)
             || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
         ) {
-            if (!is_null(self::$cacheFolder) && !is_dir(basename($cacheFile))) {
-                mkdir(basename($cacheFile), recursive: true);
-            }
-
             $__crowTemplateCode = self::getPhpCode($file, $path);
             self::getComponentConverter()->toPhp($__crowTemplateCode);
 
@@ -109,9 +100,9 @@ class Crow
             }
 
             extract($data);
-
             eval("?>$__crowTemplateCode<?php");
         } else {
+            extract($data);
             require $cacheFile;
         }
     }
@@ -143,14 +134,6 @@ class Crow
     {
         if (isset(self::$data[$key]))
             unset(self::$data[$key]);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getDataKeys(): array
-    {
-        return self::$dataKeys;
     }
 
     /**
