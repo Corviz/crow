@@ -47,7 +47,7 @@ class ComponentConverter
                     if (class_exists($componentClassName)) {
                         $code .= "<?php ";
                         $code .= "\$__component = $componentClassName::create()";
-                        $code .= "->setAttrs($attrsArrayCode)";
+                        $code .= "->setAttributes($attrsArrayCode)";
                         if ($contents) {
                             $code .= "->setContents(<<<'EOT'{$contents}EOT)";
                         }

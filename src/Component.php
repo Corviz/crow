@@ -11,7 +11,7 @@ abstract class Component
     /**
      * @var array
      */
-    private array $attrs = [];
+    private array $attributes = [];
 
     /**
      * @var string|null
@@ -21,9 +21,9 @@ abstract class Component
     /**
      * @return array
      */
-    public function getAttrs(): array
+    public function getAttributes(): array
     {
-        return $this->attrs;
+        return $this->attributes;
     }
 
     /**
@@ -35,12 +35,12 @@ abstract class Component
     }
 
     /**
-     * @param array $attrs
+     * @param array $attributes
      * @return Component
      */
-    public function setAttrs(array $attrs): Component
+    public function setAttributes(array $attributes): Component
     {
-        $this->attrs = $attrs;
+        $this->attributes = $attributes;
         return $this;
     }
 
@@ -67,6 +67,10 @@ abstract class Component
      */
     protected function view(string $file, array $data = []): void
     {
+        $data = $data + [
+            'contents' => $this->getContents(),
+            'attributes' => $this->getAttributes(),
+        ];
         Crow::render($file, $data);
     }
 }
