@@ -138,6 +138,14 @@ class Crow
     }
 
     /**
+     * @return void
+     */
+    public static function disableCodeMinifying(): void
+    {
+        self::data('options.disable-minifying', true);
+    }
+
+    /**
      * @param string $key
      *
      * @return void
@@ -280,8 +288,11 @@ class Crow
      */
     private static function minify(string &$code): void
     {
+        if (self::data('options.disable-minifying'))
+            return;
+
         $code = str_replace(["\t", "\n", "\r"], ' ', $code);
-        $code = preg_replace('/\s{2,}/m', '', $code);
+        $code = preg_replace('/\s{2,}/m', ' ', $code);
         $code = trim($code);
     }
 }
