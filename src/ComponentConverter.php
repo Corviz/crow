@@ -45,7 +45,9 @@ class ComponentConverter
                     $attrsArrayCode = $this->attrsStringToArrayCode($match[3] ?? null);
 
                     if (class_exists($componentClassName)) {
-                        $code .= "<?php ob_start(); ?>$contents<?php \$__componentContents = ob_get_contents(); ob_end_clean(); ?>";
+                        if ($contents) {
+                            $code .= "<?php ob_start(); ?>$contents<?php \$__componentContents = ob_get_contents(); ob_end_clean(); ?>";
+                        }
                         $code .= "<?php ";
                         $code .= "\$__component = $componentClassName::create()";
                         $code .= "->setAttributes($attrsArrayCode)";
