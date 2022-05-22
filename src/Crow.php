@@ -41,6 +41,7 @@ class Crow
         'endunless' => Methods\Unless\EndUnlessMethod::class,
         'break' => Methods\BreakMethod::class,
         'checked' => Methods\CheckedMethod::class,
+        'class' => Methods\ClassMethod::class,
         'continue' => Methods\ContinueMethod::class,
         'disabled' => Methods\DisabledMethod::class,
         'extends' => Methods\ExtendsMethod::class,
