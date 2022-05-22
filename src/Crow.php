@@ -37,7 +37,7 @@ class Crow
         'case' => Methods\Switch\CaseMethod::class,
         'endswitch' => Methods\Switch\EndSwitchMethod::class,
         'switch' => Methods\Switch\SwitchMethod::class,
-        'unless' => Methods\Unless\SwitchMethod::class,
+        'unless' => Methods\Unless\UnlessMethod::class,
         'endunless' => Methods\Unless\EndUnlessMethod::class,
         'break' => Methods\BreakMethod::class,
         'checked' => Methods\CheckedMethod::class,
