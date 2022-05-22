@@ -19,11 +19,6 @@ abstract class Component
     private ?string $contents = null;
 
     /**
-     * @var string
-     */
-    private string $templatesPath;
-
-    /**
      * @return array
      */
     public function getAttrs(): array
@@ -37,14 +32,6 @@ abstract class Component
     public function getContents(): ?string
     {
         return $this->contents;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTemplatesPath(): string
-    {
-        return $this->templatesPath;
     }
 
     /**
@@ -68,16 +55,6 @@ abstract class Component
     }
 
     /**
-     * @param string $templatesPath
-     * @return Component
-     */
-    public function setTemplatesPath(string $templatesPath): Component
-    {
-        $this->templatesPath = $templatesPath;
-        return $this;
-    }
-
-    /**
      * @return void
      */
     abstract public function render(): void;
@@ -90,12 +67,6 @@ abstract class Component
      */
     protected function view(string $file, array $data = []): void
     {
-        Crow::data('componentRendering', (Crow::data('componentRendering') ?? 0) + 1);
-        Crow::render($file, $data, $this->templatesPath);
-        Crow::data('componentRendering', Crow::data('componentRendering') - 1);
-
-        if (Crow::data('componentRendering') <= 0) {
-            Crow::removeData('componentRendering');
-        }
+        Crow::render($file, $data);
     }
 }

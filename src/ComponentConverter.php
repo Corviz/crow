@@ -11,22 +11,7 @@ class ComponentConverter
     /**
      * @var string
      */
-    private string $templatesPath;
-
-    /**
-     * @var string
-     */
     private string $componentsNamespace;
-
-    /**
-     * @param string $templatesPath
-     * @return ComponentConverter
-     */
-    public function setTemplatesPath(string $templatesPath): ComponentConverter
-    {
-        $this->templatesPath = $templatesPath;
-        return $this;
-    }
 
     /**
      * @param string $componentsNamespace
@@ -63,7 +48,6 @@ class ComponentConverter
                         $code .= "<?php ";
                         $code .= "\$__component = $componentClassName::create()";
                         $code .= "->setAttrs($attrsArrayCode)";
-                        $code .= "->setTemplatesPath('{$this->templatesPath}')";
                         if ($contents) {
                             $code .= "->setContents(<<<'EOT'{$contents}EOT)";
                         }

@@ -85,7 +85,7 @@ class Crow
      */
     public static function render(string $file, array $data = [], ?string $path = null)
     {
-        $cacheFile = self::$cacheFolder.(self::data('componentRendering') ? '/components' : '').'/'.$file.'.cache.php';
+        $cacheFile = self::$cacheFolder.'/'.$file.'.cache.php';
         self::data('dataKeys', array_keys($data));
 
         if (
@@ -96,6 +96,10 @@ class Crow
             self::getComponentConverter()->toPhp($__crowTemplateCode);
 
             if (!is_null(self::$cacheFolder)) {
+                $cacheDir = dirname($cacheFile);
+                if (!is_dir($cacheDir)) {
+                    mkdir($cacheDir, recursive: true);
+                }
                 file_put_contents($cacheFile, $__crowTemplateCode);
             }
 
@@ -189,16 +193,6 @@ class Crow
     public static function setComponentsNamespace(string $namespace)
     {
         self::getComponentConverter()->setComponentsNamespace($namespace);
-
-    }
-
-    /**
-     * @param string $path
-     * @return void
-     */
-    public static function setComponentsTemplatesPath(string $path)
-    {
-        self::getComponentConverter()->setTemplatesPath($path);
     }
 
     /**
