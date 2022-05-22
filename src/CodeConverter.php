@@ -80,9 +80,14 @@ final class CodeConverter
      * @param string $templateCode
      * @return int
      */
-    private function convertMethods(string &$templateCode, string $tag = '\w+'): int
+    private function convertMethods(string &$templateCode, string $tag = null): int
     {
         $count = 0;
+
+        if (is_null($tag)) {
+            $tag = implode('|', array_keys($this->methods));
+        }
+
         $templateCode = preg_replace_callback(
             '/@('.$tag.')\s*(\(((?:[^()]++|(\g<2>))*)\))?/m',
             function($match){
