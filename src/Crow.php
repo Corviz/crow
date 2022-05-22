@@ -85,6 +85,7 @@ class Crow
      * @param array $data
      * @param string|null $path
      *
+     * @throws Exception
      * @return void
      */
     public static function render(string $file, array $data = [], ?string $path = null)
@@ -104,7 +105,10 @@ class Crow
                 if (!is_dir($cacheDir)) {
                     mkdir($cacheDir, recursive: true);
                 }
-                file_put_contents($cacheFile, $__crowTemplateCode);
+
+                if (false === file_put_contents($cacheFile, $__crowTemplateCode)) {
+                    throw new Exception('Could not write cache file: '.$cacheFile);
+                }
             }
 
             extract($data);
