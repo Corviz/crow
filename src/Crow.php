@@ -120,6 +120,17 @@ class Crow
     }
 
     /**
+     * @param string $method
+     * @param string $class
+     *
+     * @return void
+     */
+    public static function addMethod(string $method, string $class): void
+    {
+        self::getCodeConverter()->addMethod($method, $class);
+    }
+
+    /**
      * @param string|null $key
      * @param mixed|null $value
      *
