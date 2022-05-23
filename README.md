@@ -31,7 +31,7 @@ Crow::render('index');
 
 In /path/to/templates/folder/index.crow.php:
 
-```php
+```html
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,7 +52,7 @@ $todoList = ['Work', 'Clean house', 'Relax'];
 
 Template file
 
-```php
+```html
 <h1>Todo:</h1>
 <ul>
     @foreach($todoList as $task)
