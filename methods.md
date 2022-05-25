@@ -1,15 +1,15 @@
 # Crow template engine - methods
-
+{% verbatim %}
 ## Printing
 
 There are two ways of printing values:
 
-* `{{ '{{ $value }}' }}` for escaping output.
+* `{{ $value }}` for escaping output.
 * `{!! $value !!}` for raw value output.
 
 ## Commentaries
 
-`{{ '{{-- My comment --}}' }}`
+`{{-- My comment --}}`
 
 This will work for single and multiline commentaries
 
@@ -90,7 +90,7 @@ Nested if conditions (aka. elseif)
 
 ```html
 @for ($i = 1; $i <= 10; $i++)
-    Counting {{ '{{ $i }}' }}
+    Counting {{ $i }}
 @endfor
 ```
 
@@ -98,7 +98,7 @@ Nested if conditions (aka. elseif)
 
 ```html
 @foreach ($todoList as $todo)
-    {{ '{{ $todo }}' }}
+    {{ $todo }}
 @endfor
 ```
 
@@ -273,3 +273,5 @@ Each item will be included to class attribute as it's value is true
     $to = $from + 10;
 @endphp
 ```
+
+{% endverbatim %}
