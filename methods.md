@@ -19,7 +19,7 @@ This will work for single and multiline commentaries
 
 Simple if statement:
 
-```html
+```
 @if ($some == 'condition')
     <span>Condition is true</span>
 @endif
@@ -27,7 +27,7 @@ Simple if statement:
 
 If/else condition
 
-```html
+```
 @if ($some == 'condition')
     <span>Condition is true</span>
 @else
@@ -37,7 +37,7 @@ If/else condition
 
 Nested if conditions (aka. elseif)
 
-```html
+```
 @if ($condition1)
     <span>Condition 1 is true</span>
 @elseif ($condition2)
@@ -53,7 +53,7 @@ Nested if conditions (aka. elseif)
 
 ### @switch
 
-```html
+```
 @switch ($value)
     @case (1)
         Value is 1
@@ -70,7 +70,7 @@ Nested if conditions (aka. elseif)
 
 ### @empty
 
-```html
+```
 @empty ($value)
     Value is empty
 @endempty
@@ -78,7 +78,7 @@ Nested if conditions (aka. elseif)
 
 ### @unless
 
-```html
+```
 @unless ($condition)
     Condition is false
 @endunless
@@ -88,7 +88,7 @@ Nested if conditions (aka. elseif)
 
 ### @for
 
-```html
+```
 @for ($i = 1; $i <= 10; $i++)
     Counting {{ $i }}
 @endfor
@@ -96,7 +96,7 @@ Nested if conditions (aka. elseif)
 
 ### @foreach
 
-```html
+```
 @foreach ($todoList as $todo)
     {{ $todo }}
 @endfor
@@ -104,7 +104,7 @@ Nested if conditions (aka. elseif)
 
 ### @while
 
-```html
+```
 @while ($condition)
     Condition still true
 @endwhile
@@ -112,7 +112,7 @@ Nested if conditions (aka. elseif)
 
 ### @forelse
 
-```html
+```
 @forelse ($list as $item)
     Current item: {{ $item }}
 @empty
@@ -125,7 +125,7 @@ Nested if conditions (aka. elseif)
 `@break` and `@continue` works with all loop methods
 
 Simple breaking
-```html
+```
 @for ($i = 1; $i <= 10; $i++)
     Current item {{ $i }}
                       
@@ -136,7 +136,7 @@ Simple breaking
 ```
 
 Simple continuing
-```html
+```
 @for ($i = 1; $i <= 10; $i++)
     Current item {{ $i }}
                       
@@ -147,7 +147,7 @@ Simple continuing
 ```
 
 Conditional breaking
-```html
+```
 @for ($i = 1; $i <= 10; $i++)
     Current item {{ $i }}
                       
@@ -158,7 +158,7 @@ Conditional breaking
 ```
 
 Conditional continuing
-```html
+```
 @for ($i = 1; $i <= 10; $i++)
     Current item {{ '{{ $i }}' }}
                       
@@ -177,7 +177,7 @@ Sections are parts of the template that wont be printed immediately but when `@y
     This is a section
 @endsection
 
-{{ '{{-- Some code here --}}' }}
+{{-- Some code here --}}
 
 @yield ('section1')
 ```
@@ -185,7 +185,7 @@ Sections are parts of the template that wont be printed immediately but when `@y
 ## @include
 
 To include other templates:
-```html
+```
 <div class="contents">
     {{ '{{-- This will search for othertemplate.crow.php in the templates directory --}}' }}
     @include('othertemplate')
@@ -197,7 +197,7 @@ To include other templates:
 Lets say you have a base template file:
 
 *base.crow.php:*
-```html
+```
 <!DOCTYPE html>
 <html>
     <head>
@@ -212,7 +212,7 @@ Lets say you have a base template file:
 All you have to do to extend it is:
 
 *login-form.crow.php:*
-```html
+```
 @extends ('base')
 
 @section ('contents')
@@ -232,12 +232,12 @@ All you have to do to extend it is:
 ## Attributes
 
 ### @disabled
-```html
+```
 <input type="text" name="something" @disabled($condition)/>
 ```
 
 ### @readonly
-```html
+```
 <input type="text" name="something" @readonly($condition)/>
 ```
 
@@ -251,7 +251,7 @@ All you have to do to extend it is:
 ```
 
 ### @checked
-```html
+```
 <input type="checkbox" value="1" name="something" @checked($value == 1)/>
 ```
 
@@ -259,14 +259,14 @@ All you have to do to extend it is:
 
 Each item will be included to class attribute as it's value is true
 
-```html
+```
 <div @class(['class1' => true, 'class2' => false, 'class3' => true])>
     contents...
 </div>
 ```
 
 ## Runing php code:
-```html
+```
 @php
     //This is php code
     $from = 10;
