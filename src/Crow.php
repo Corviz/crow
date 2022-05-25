@@ -40,6 +40,8 @@ class Crow
         'switch' => Methods\Switch\SwitchMethod::class,
         'unless' => Methods\Unless\UnlessMethod::class,
         'endunless' => Methods\Unless\EndUnlessMethod::class,
+        'while' => Methods\While\WhileMethod::class,
+        'endwhile' => Methods\While\EndWhileMethod::class,
         'break' => Methods\BreakMethod::class,
         'checked' => Methods\CheckedMethod::class,
         'class' => Methods\ClassMethod::class,
