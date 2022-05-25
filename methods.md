@@ -4,12 +4,12 @@
 
 There are two ways of printing values:
 
-* `{{ $value }}` for escaping output.
+* `{{ '{{ $value }}' }}` for escaping output.
 * `{!! $value !!}` for raw value output.
 
 ## Commentaries
 
-`{{-- My comment --}}`
+`{{ '{{-- My comment --}}' }}`
 
 This will work for single and multiline commentaries
 
@@ -90,7 +90,7 @@ Nested if conditions (aka. elseif)
 
 ```html
 @for ($i = 1; $i <= 10; $i++)
-    Counting {{ $i }}
+    Counting {{ '{{ $i }}' }}
 @endfor
 ```
 
@@ -98,7 +98,7 @@ Nested if conditions (aka. elseif)
 
 ```html
 @foreach ($todoList as $todo)
-    {{ $todo }}
+    {{ '{{ $todo }}' }}
 @endfor
 ```
 
@@ -160,7 +160,7 @@ Conditional breaking
 Conditional continuing
 ```html
 @for ($i = 1; $i <= 10; $i++)
-    Current item {{ $i }}
+    Current item {{ '{{ $i }}' }}
                       
     @continue ($i == 5)
                       
@@ -177,7 +177,7 @@ Sections are parts of the template that wont be printed immediately but when `@y
     This is a section
 @endsection
 
-{{-- Some code here --}}
+{{ '{{-- Some code here --}}' }}
 
 @yield ('section1')
 ```
@@ -187,7 +187,7 @@ Sections are parts of the template that wont be printed immediately but when `@y
 To include other templates:
 ```html
 <div class="contents">
-    {{-- This will search for othertemplate.crow.php in the templates directory --}}
+    {{ '{{-- This will search for othertemplate.crow.php in the templates directory --}}' }}
     @include('othertemplate')
 </div>
 ```
