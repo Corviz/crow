@@ -1,5 +1,5 @@
 # Crow template engine - methods
-{% verbatim %}
+{% raw %}
 ## Printing
 
 There are two ways of printing values:
@@ -274,4 +274,4 @@ Each item will be included to class attribute as it's value is true
 @endphp
 ```
 
-{% endverbatim %}
+{% endraw %}
