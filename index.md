@@ -2,6 +2,8 @@
 
 Yet another php template engine
 
+{% include menu.md %}
+
 Features:
 
 * Easily extensible - You can create new methods to satisfy your needs
@@ -60,7 +62,3 @@ Template file
     @endforeach
 </ul>
 ```
-
-## Like it?
-
-Visit https://corviz.github.io/crow/ for documentation/examples
