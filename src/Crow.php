@@ -35,6 +35,7 @@ class Crow
         'section' => Methods\Section\SectionMethod::class,
         'endsection' => Methods\Section\EndSectionMethod::class,
         'case' => Methods\Switch\CaseMethod::class,
+        'default' => Methods\Switch\DefaultMethod::class,
         'endswitch' => Methods\Switch\EndSwitchMethod::class,
         'switch' => Methods\Switch\SwitchMethod::class,
         'unless' => Methods\Unless\UnlessMethod::class,
