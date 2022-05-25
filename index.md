@@ -2,7 +2,7 @@
 
 Yet another php template engine
 
-{% include menu.md %}
+{% include menu.html %}
 
 Features:
 

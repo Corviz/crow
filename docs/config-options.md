@@ -1,5 +1,7 @@
 # Crow template engine - options
 
+{% include menu.html %}
+
 Here we will see the complete options list
 
 ## Default path
