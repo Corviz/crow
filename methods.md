@@ -172,7 +172,7 @@ Conditional continuing
 
 Sections are parts of the template that wont be printed immediately but when `@yield('secion_name')` is encountered. Example:
 
-```html
+```
 @section ('section1')
     This is a section
 @endsection
@@ -242,7 +242,7 @@ All you have to do to extend it is:
 ```
 
 ### @selected
-```html
+```
 <select name="my_select">
     <option value="1" @selected($option == 1)>Option 1</option>
     <option value="2" @selected($option == 2)>Option 2</option>
