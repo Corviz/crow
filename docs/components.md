@@ -2,6 +2,7 @@
 
 {% include menu.html %}
 
+{% raw %}
 ## Set up
 
 ### 1 - Define your component classes namespace
@@ -125,3 +126,5 @@ or
 ```
 
 Enjoy!
+
+{% endraw %}

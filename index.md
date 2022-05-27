@@ -4,6 +4,7 @@ Yet another php template engine
 
 {% include menu.html %}
 
+{% raw %}
 Features:
 
 * Easily extensible - You can create new methods to satisfy your needs
@@ -62,3 +63,5 @@ Template file
     @endforeach
 </ul>
 ```
+
+{% endraw %}
