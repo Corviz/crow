@@ -1,6 +1,6 @@
-# Crow template engine - components
-
 {% include menu.html %}
+
+# Crow template engine - components
 
 {% raw %}
 ## Set up

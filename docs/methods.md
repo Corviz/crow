@@ -1,6 +1,6 @@
-# Crow template engine - methods
-
 {% include menu.html %}
+
+# Crow template engine - methods
 
 {% raw %}
 ## Printing
