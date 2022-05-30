@@ -64,4 +64,6 @@ Template file
 </ul>
 ```
 
+[See more...](/crow/docs/methods)
+
 {% endraw %}
