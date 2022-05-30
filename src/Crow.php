@@ -49,6 +49,7 @@ class Crow
         'disabled' => Methods\DisabledMethod::class,
         'extends' => Methods\ExtendsMethod::class,
         'include' => Methods\IncludeMethod::class,
+        'readonly' => Methods\ReadonlyMethod::class,
         'selected' => Methods\SelectedMethod::class,
         'yield' => Methods\YieldMethod::class,
     ];
