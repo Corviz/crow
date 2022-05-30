@@ -1,7 +1,5 @@
 # Crow template engine
 
-Yet another php template engine
-
 {% include menu.html %}
 
 {% raw %}
