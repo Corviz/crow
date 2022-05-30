@@ -48,6 +48,8 @@ In /path/to/templates/folder/index.crow.php:
 In your main script:
 ```php 
 $todoList = ['Work', 'Clean house', 'Relax'];
+
+Crow::render('template', ['todoList' => $todoList]);
 ```
 
 Template file
