@@ -99,9 +99,17 @@ Nested if conditions (aka. elseif)
 
 ### @foreach
 
+Without keys:
 ```
 @foreach ($todoList as $todo)
     {{ $todo }}
+@endfor
+```
+
+With keys:
+```
+@foreach ($values as $key => $value)
+    {{ $key }} - {{ $value }}
 @endfor
 ```
 
@@ -115,6 +123,7 @@ Nested if conditions (aka. elseif)
 
 ### @forelse
 
+Without keys:
 ```
 @forelse ($list as $item)
     Current item: {{ $item }}
@@ -122,6 +131,16 @@ Nested if conditions (aka. elseif)
     List is empty
 @endforelse
 ```
+
+With keys:
+```
+@forelse ($list as $key => $item)
+    Current item: {{ $key }} - {{ $item }}
+@empty
+    List is empty
+@endforelse
+```
+
 
 ### Breaking or continuing loop iteration
 
