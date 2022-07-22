@@ -25,13 +25,15 @@
     display: block;
 }
 
+.menu li.active,
+.menu li:hover{
+    border-bottom: 2px red solid;
+}
+
 .menu li.active > a,
 .menu li a:hover {
     background: #2a2a2a;
     color: #fff;
-    -moz-box-shadow: 0 3px 10px 0 #CCC;
-    -webkit-box-shadow: 0 3px 10px 0 #ccc;
-    text-shadow: 0px 0px 5px #fff;
 }
 
 .menu li ul {
