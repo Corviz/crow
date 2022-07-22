@@ -1,31 +1,3 @@
-<style>
-    nav ul {
-        display: flex;
-    }
-
-    nav ul li {
-        list-style: none;
-    }
-
-    nav ul,
-    nav ul li {
-        margin: 0;
-        padding: 0;
-    }
-
-    nav ul li a {
-        text-decoration: none;
-        padding: 3px 5px;
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    nav ul li.active a {
-        text-decoration: underline;
-    }
-</style>
 <nav>
     <ul>
         {% for item in site.data.menu %}
