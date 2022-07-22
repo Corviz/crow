@@ -4,16 +4,16 @@
 
 - title: 'Configuration Options'
   link: 'docs/config-options'
-  file: 'config-options.md'
+  file: 'docs/config-options.md'
 
 - title: 'Methods'
   link: 'docs/methods'
-  file: 'methods.md'
+  file: 'docs/methods.md'
 
 - title: 'Components (custom tags)'
   link: 'docs/components'
-  file: 'components.md'
+  file: 'docs/components.md'
 
 - title: 'Extending'
   link: 'docs/extending'
-  file: 'extending.md'
+  file: 'docs/extending.md'
