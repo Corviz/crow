@@ -3,17 +3,17 @@
   file: 'index.md'
 
 - title: 'Configuration Options'
-  link: 'docs/config-options'
-  file: 'docs/config-options.md'
+  link: 'config-options'
+  file: 'config-options.md'
 
 - title: 'Methods'
-  link: 'docs/methods'
-  file: 'docs/methods.md'
+  link: 'methods'
+  file: 'methods.md'
 
 - title: 'Components (custom tags)'
-  link: 'docs/components'
-  file: 'docs/components.md'
+  link: 'components'
+  file: 'components.md'
 
 - title: 'Extending'
-  link: 'docs/extending'
-  file: 'docs/extending.md'
+  link: 'extending'
+  file: 'extending.md'
