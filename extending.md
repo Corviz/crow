@@ -40,7 +40,7 @@ The variable $parametersCode will contain the string `$variable == 'value'`
 The first parameter will be the method signature, the second the name of the class that will be used:
 
 ```php
-Crow::addMethod('mytestmethod', \App\Template\CustomMethods::class);
+Crow::addMethod('mytestmethod', \App\Template\CustomMethods\TestMethod::class);
 ```
 
 ## 3 - Use it!
