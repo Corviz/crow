@@ -21,13 +21,17 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    nav ul li.active a {
+        text-decoration: underline;
+    }
 </style>
 <nav>
     <ul>
-        <li><a href="/crow/">Home</a></li>
-        <li><a href="/crow/docs/config-options">Configuration options</a></li>
-        <li><a href="/crow/docs/methods">Methods</a></li>
-        <li><a href="/crow/docs/components">Components (custom tags)</a></li>
-        <li><a href="/crow/docs/extending">Extending</a></li>
+        {% for item in site.data.menu %}
+        <li {% if page.name == item.file %}class="active"{% endif %}>
+            <a href="{{ item.link }}">{{ item.title }}</a>
+        </li>
+        {% endfor %}
     </ul>
 </nav>

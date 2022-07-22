@@ -1,0 +1,19 @@
+- title: 'Home'
+  link: 'index'
+  file: 'index.md'
+
+- title: 'Configuration Options'
+  link: 'docs/config-options'
+  file: 'config-options.md'
+
+- title: 'Methods'
+  link: 'docs/methods'
+  file: 'methods.md'
+
+- title: 'Components (custom tags)'
+  link: 'docs/components'
+  file: 'components.md'
+
+- title: 'Extending'
+  link: 'docs/extending'
+  file: 'extending.md'
