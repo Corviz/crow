@@ -15,7 +15,12 @@
 .menu li {
     position: relative;
     border: 1px solid #c0c0c0;
-    float: left;
+}
+
+@media (min-width: 768px) {
+    .menu > li {
+        float: left;
+    }
 }
 
 .menu li a {
