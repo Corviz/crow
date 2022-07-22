@@ -1,26 +1,58 @@
-nav ul {
-    display: flex;
+nav.top-menu {
+    text-align: center;
 }
 
-nav ul li {
+.menu {
     list-style: none;
+    display: inline-block;
+    margin: 0 auto;
 }
 
-nav ul,
-nav ul li {
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li a {
-    text-decoration: none;
-    padding: 3px 5px;
+.menu:after {
+    content: '';
+    width: 0;
+    height: 0;
     display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    visibility: hidden;
+    clear: both;
 }
 
-nav ul li.active a {
-    text-decoration: underline;
+.menu li {
+    position: relative;
+    border: 1px solid #c0c0c0;
+    float: left;
+}
+
+.menu li a {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+}
+
+.menu li.active > a,
+.menu li a:hover {
+    background: #2a2a2a;
+    color: #fff;
+    -moz-box-shadow: 0 3px 10px 0 #CCC;
+    -webkit-box-shadow: 0 3px 10px 0 #ccc;
+    text-shadow: 0px 0px 5px #fff;
+}
+
+.menu li ul {
+    position: absolute;
+    top: 24px;
+    left: -1px;
+    background-color: #fff;
+    display: none;
+}
+
+.menu li:hover ul, .menu li.over ul {
+    display: block;
+}
+
+.menu li ul li {
+    border: 1px solid #c0c0c0;
+    display: block;
+    width: 150px;
 }

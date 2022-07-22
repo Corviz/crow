@@ -1,5 +1,5 @@
-<nav>
-    <ul>
+<nav class="top-menu">
+    <ul class="menu">
         {% for item in site.data.menu %}
         <li {% if page.name == item.file %}class="active"{% endif %}>
             <a href="{{ item.link }}">{{ item.title }}</a>
