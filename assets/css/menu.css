@@ -1,11 +1,6 @@
-nav.top-menu {
-    text-align: center;
-}
-
 .menu {
     list-style: none;
-    display: inline-block;
-    margin: 0 auto;
+    padding: 0;
 }
 
 .menu:after {
