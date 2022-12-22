@@ -20,6 +20,16 @@ class FileLoader
     private ?string $extension = null;
 
     /**
+     * @param string $file
+     * @param string|null $path
+     * @return int|false
+     */
+    public function getModificationTime(string $file, string $path = null): int|false
+    {
+        return filemtime($this->getFilePath($file, $path));
+    }
+
+    /**
      *
      * @param string $file
      * @param string|null $path
@@ -29,10 +39,7 @@ class FileLoader
      */
     public function load(string $file, string $path = null): string
     {
-        $path = $path ?? $this->defaultPath ?? '';
-        $extension = $this->extension ?? '';
-
-        $filename = "$path/{$file}{$extension}";
+        $filename = $this->getFilePath($file, $path);
 
         if (!is_file($filename) || !is_readable($filename)) {
             throw new Exception("File is unreadable: '$filename'");
@@ -59,5 +66,18 @@ class FileLoader
     {
         $this->extension = $extension;
         return $this;
+    }
+
+    /**
+     * @param string $file
+     * @param string|null $path
+     * @return string
+     */
+    private function getFilePath(string $file, string $path = null)
+    {
+        $path = $path ?? $this->defaultPath ?? '';
+        $extension = $this->extension ?? '';
+
+        return "$path/{$file}{$extension}";
     }
 }

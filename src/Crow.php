@@ -97,10 +97,15 @@ class Crow
         $cacheFile = self::$cacheFolder.'/'.$file.'.cache.php';
         self::data('dataKeys', array_keys($data));
 
-        if (
-            is_null(self::$cacheFolder)
-            || (!is_null(self::$cacheFolder) && !is_file($cacheFile))
-        ) {
+        $isCached = false;
+        if (!is_null(self::$cacheFolder)) {
+            $loader = self::getLoader();
+            if (is_file($cacheFile) && filemtime($cacheFile) > $loader->getModificationTime($file, $path)) {
+                $isCached = true;
+            }
+        }
+
+        if (!$isCached) {
             $__crowTemplateCode = self::getPhpCode($file, $path);
             self::getComponentConverter()->toPhp($__crowTemplateCode);
 
