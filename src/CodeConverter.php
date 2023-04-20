@@ -85,7 +85,17 @@ final class CodeConverter
         $count = 0;
 
         if (is_null($tag)) {
-            $tag = implode('|', array_keys($this->methods));
+            $methods = array_keys($this->methods);
+            //Evaluate longer named methods first
+            usort($methods, function ($a, $b) {
+                $lengthA = strlen($a);
+                $lengthB = strlen($b);
+
+                if ($lengthA == $lengthB) return 0;
+
+                return $lengthB > $lengthA ? 1 : -1;
+            });
+            $tag = implode('|', $methods);
         }
 
         $templateCode = preg_replace_callback(
