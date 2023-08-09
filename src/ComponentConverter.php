@@ -33,7 +33,7 @@ class ComponentConverter
         do {
             $count = 0;
             $template = preg_replace_callback(
-                '/<(x-(\w|-)+)([^\/>]*?)(\/>|>(.*?)<\/\g<1>>)/s',
+                '/<(x-(\w|-)+)([^\/>]*?)(\/>|>(.*?)<\/\1>)/s',
                 function($match) {
                     $code = "";
                     $componentName = substr($match[1], 2);
@@ -102,7 +102,6 @@ class ComponentConverter
         if (!is_null($componentAttrs)) {
 
             $re = '/((:?)((\w|-)+))(="((?:[^"]++|\g<4>)(.*?))")?/s';
-            $str = ' nome="Abc" :data-atual="!$teste || date(\'Y-m-d\') && $valid == true" teste';
 
             preg_match_all($re, $componentAttrs, $matches, PREG_SET_ORDER);
 
