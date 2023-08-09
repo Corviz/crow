@@ -33,7 +33,7 @@ class ComponentConverter
         do {
             $count = 0;
             $template = preg_replace_callback(
-                '/<(x-(\w|-)+)([^\/>]*?)(\/>|>(.*?)<\/\1>)/s',
+                '/<(x-[\w.-]+)([^\/>]*?)(\/>|>((?:(?!<\/?\1\b).|(?R))*)<\/\1>)/s',
                 function($match) {
                     $code = "";
                     $componentName = substr($match[1], 2);
