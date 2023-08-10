@@ -14,4 +14,4 @@ This application features some of the basics and advanced use-cases of Crow Temp
 - - Creating packages for third-party usage
 - - Including packages to your project
 
-For more details: https://corviz.github.io/
+For more details: https://corviz.github.io/crow/
