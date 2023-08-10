@@ -9,6 +9,16 @@ abstract class Component
     use SelfCreate;
 
     /**
+     * @var string|null
+     */
+    protected ?string $templatesPath = null;
+
+    /**
+     * @var string|null
+     */
+    protected ?string $extension = Crow::DEFAULT_EXTENSION;
+
+    /**
      * @var array
      */
     private array $attributes = [];
@@ -71,6 +81,10 @@ abstract class Component
             'contents' => $this->getContents(),
             'attributes' => $this->getAttributes(),
         ];
-        Crow::render($file, $data);
+        $oldExt = Crow::getExtension();
+
+        Crow::setExtension($this->extension);
+        Crow::render($file, $data, $this->templatesPath);
+        Crow::setExtension($oldExt);
     }
 }

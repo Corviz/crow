@@ -129,6 +129,23 @@ class Crow
     }
 
     /**
+     * @param string $namespace
+     * @param string|null $prefix
+     * @return void
+     * @throws Exception
+     */
+    public static function addComponentsNamespace(string $namespace, string $prefix = null): void
+    {
+        $arguments = [$namespace];
+
+        if (!is_null($prefix)) {
+            $arguments[] = $prefix;
+        }
+
+        self::getComponentConverter()->addComponentsNamespace(...$arguments);
+    }
+
+    /**
      * @param string $method
      * @param string $class
      *
@@ -174,6 +191,14 @@ class Crow
     {
         if (isset(self::$data[$key]))
             unset(self::$data[$key]);
+    }
+
+    /**
+     * @return string|null
+     */
+    public static function getExtension(): string
+    {
+        return self::getLoader()->getExtension() ?? self::DEFAULT_EXTENSION;
     }
 
     /**
@@ -225,10 +250,11 @@ class Crow
     /**
      * @param string $namespace
      * @return void
+     * @throws Exception
      */
     public static function setComponentsNamespace(string $namespace)
     {
-        self::getComponentConverter()->setComponentsNamespace($namespace);
+        self::addComponentsNamespace($namespace);
     }
 
     /**
