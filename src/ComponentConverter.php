@@ -3,10 +3,16 @@
 namespace Corviz\Crow;
 
 use Corviz\Crow\Traits\SelfCreate;
+use Exception;
 
 class ComponentConverter
 {
     use SelfCreate;
+
+    /**
+     * @var array
+     */
+    private array $namespacesMap = [];
 
     /**
      * @var string
@@ -14,13 +20,29 @@ class ComponentConverter
     private string $componentsNamespace;
 
     /**
+     * @param string $namespace
+     * @param string $prefix
+     * @return ComponentConverter
+     * @throws Exception
+     */
+    public function addComponentsNamespace(string $namespace, string $prefix = 'default'): ComponentConverter
+    {
+        if (isset($this->namespacesMap[$prefix])) {
+            throw new Exception("The prefix '$prefix' is registered already");
+        }
+
+        $this->namespacesMap[$prefix] = trim($namespace, '\\');
+        return $this;
+    }
+
+    /**
      * @param string $componentsNamespace
+     *
      * @return ComponentConverter
      */
     public function setComponentsNamespace(string $componentsNamespace): ComponentConverter
     {
-        $this->componentsNamespace = trim($componentsNamespace, '\\');
-        return $this;
+        return $this->addComponentsNamespace($componentsNamespace);
     }
 
     /**
@@ -33,16 +55,13 @@ class ComponentConverter
         do {
             $count = 0;
             $template = preg_replace_callback(
-                '/<(x-(\w|-)+)([^\/>]*?)(\/>|>(.*?)<\/\1>)/s',
+                '/<(x-[\w.-]+)([^\/>]*?)(\/>|>((?:(?!<\/?\1\b).|(?R))*)<\/\1>)/s',
                 function($match) {
                     $code = "";
-                    $componentName = substr($match[1], 2);
-                    $componentClassName =
-                        '\\'.$this->componentsNamespace
-                        .'\\'. $this->dashToUpperCamelCase($componentName).'Component';
-                    $contents = $match[5] ?? null;
+                    $componentClassName = $this->getComponentClass($match[1]);
+                    $contents = $match[4] ?? null;
 
-                    $attrsArrayCode = $this->attrsStringToArrayCode($match[3] ?? null);
+                    $attrsArrayCode = $this->attrsStringToArrayCode($match[2] ?? null);
 
                     if (class_exists($componentClassName)) {
                         if ($contents) {
@@ -125,5 +144,32 @@ class ComponentConverter
         $code .= ']';
 
         return $code;
+    }
+
+    /**
+     * @param string $componentTagName
+     *
+     * @return string|null
+     */
+    private function getComponentClass(string $componentTagName): ?string
+    {
+        $pieces = explode('.', substr($componentTagName, 2));
+        $className = $this->dashToUpperCamelCase(array_pop($pieces));
+        $namespace = $this->namespacesMap['default'];
+
+        if (!empty($pieces)) {
+            do {
+                $currentIndex = implode('.', $pieces);
+
+                if (isset($this->namespacesMap[$currentIndex])) {
+                    $namespace = $this->namespacesMap[$currentIndex];
+                    break;
+                }
+
+                $className = $this->dashToUpperCamelCase(array_pop($pieces)).'\\'.$className;
+            } while(!empty($pieces));
+        }
+
+        return !empty($namespace) ? "\\$namespace\\$className" : "\\$className";
     }
 }

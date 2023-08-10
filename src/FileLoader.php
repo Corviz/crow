@@ -20,6 +20,14 @@ class FileLoader
     private ?string $extension = null;
 
     /**
+     * @return string|null
+     */
+    public function getExtension(): ?string
+    {
+        return $this->extension;
+    }
+
+    /**
      * @param string $file
      * @param string|null $path
      * @return int|false

@@ -2,6 +2,7 @@
 
 namespace Corviz\Crow;
 
+use Closure;
 use Corviz\Crow\Methods;
 use Exception;
 
@@ -55,6 +56,16 @@ class Crow
     ];
 
     /**
+     * @var array
+     */
+    private static array $pathHashes = [];
+
+    /**
+     * @var Closure|null
+     */
+    private static ?Closure $pathHashingFunction = null;
+
+    /**
      * @var string|null
      */
     private static ?string $cacheFolder = null;
@@ -94,11 +105,14 @@ class Crow
      */
     public static function render(string $file, array $data = [], ?string $path = null)
     {
-        $cacheFile = self::$cacheFolder.'/'.$file.'.cache.php';
+        $cacheFile = null;
         self::data('dataKeys', array_keys($data));
-
         $isCached = false;
+
         if (!is_null(self::$cacheFolder)) {
+            $folder = 'c'.self::generatePathHash($path);
+            $cacheFile = self::$cacheFolder."/$folder/$file.cache.php";
+
             $loader = self::getLoader();
             if (is_file($cacheFile) && filemtime($cacheFile) > $loader->getModificationTime($file, $path)) {
                 $isCached = true;
@@ -126,6 +140,23 @@ class Crow
             extract($data);
             require $cacheFile;
         }
+    }
+
+    /**
+     * @param string $namespace
+     * @param string|null $prefix
+     * @return void
+     * @throws Exception
+     */
+    public static function addComponentsNamespace(string $namespace, string $prefix = null): void
+    {
+        $arguments = [$namespace];
+
+        if (!is_null($prefix)) {
+            $arguments[] = $prefix;
+        }
+
+        self::getComponentConverter()->addComponentsNamespace(...$arguments);
     }
 
     /**
@@ -177,6 +208,14 @@ class Crow
     }
 
     /**
+     * @return string|null
+     */
+    public static function getExtension(): string
+    {
+        return self::getLoader()->getExtension() ?? self::DEFAULT_EXTENSION;
+    }
+
+    /**
      * @param string $file
      * @param string|null $path
      *
@@ -225,10 +264,11 @@ class Crow
     /**
      * @param string $namespace
      * @return void
+     * @throws Exception
      */
     public static function setComponentsNamespace(string $namespace)
     {
-        self::getComponentConverter()->setComponentsNamespace($namespace);
+        self::addComponentsNamespace($namespace);
     }
 
     /**
@@ -250,6 +290,16 @@ class Crow
     }
 
     /**
+     * @param callable $pathHashingFunction
+     *
+     * @return void
+     */
+    public static function setPathHashingFunction(callable $pathHashingFunction): void
+    {
+        self::$pathHashingFunction = Closure::fromCallable($pathHashingFunction);
+    }
+
+    /**
      * @param string $file
      * @param string|null $path
      *
@@ -258,6 +308,22 @@ class Crow
     public static function queueTemplate(string $file, ?string $path = null)
     {
         self::$renderQueue[] = compact('file', 'path');
+    }
+
+    /**
+     * @param string|null $path
+     * @return string
+     */
+    private static function generatePathHash(?string $path): string
+    {
+        $path = $path ?? 'default';
+
+        if (!isset(self::$pathHashes[$path])) {
+            $hashingFunction = self::$pathHashingFunction ?? 'md5';
+            self::$pathHashes[$path] = $hashingFunction($path);
+        }
+
+        return self::$pathHashes[$path];
     }
 
     /**
