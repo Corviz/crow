@@ -12,11 +12,6 @@ class RandomImage extends Component
     protected ?string $templatesPath = __DIR__.'/template';
 
     /**
-     * @var string|null
-     */
-    protected ?string $extension = '.blade.php';
-
-    /**
      * @inheritDoc
      */
     public function render(): void
