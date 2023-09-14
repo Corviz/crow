@@ -63,6 +63,11 @@ Template file
 </ul>
 ```
 
+## Credits
+
+- Carlos A. B. Carucce - Development ([Github Profile](https://github.com/carloscarucce))
+- Wiktor Stribiżew - Special thanks for the support with most regexes used in this project ([Stackoverflow](https://stackoverflow.com/users/3832970/wiktor-stribi%c5%bcew) / [YT Channel](https://www.youtube.com/channel/UCFeq5T-LNtqpVrn_rcJ9hFw))
+
 ## Like it?
 
 Visit https://corviz.github.io/crow/ for documentation/examples
