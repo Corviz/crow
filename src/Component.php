@@ -77,7 +77,7 @@ abstract class Component
      */
     protected function view(string $file, array $data = []): void
     {
-        $data = $data + [
+        $data = $data + get_object_vars($this) + [
             'contents' => $this->getContents(),
             'attributes' => $this->getAttributes(),
         ];
