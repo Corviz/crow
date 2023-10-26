@@ -6,13 +6,15 @@ use Corviz\Crow\Component;
 
 class ExampleComponent extends Component
 {
+    public string $message = 'This is a simple component';
+
     /**
      * @inheritDoc
      */
     public function render(): void
     {
         $data = [
-            'message' => 'This is a simple component',
+            'anotherMessage' => 'This is another message',
         ];
 
         $this->view('example-component', $data);
