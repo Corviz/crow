@@ -12,9 +12,7 @@ class ForelseMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        $matches = [];
-        preg_match('/\$\w+/m', $parameters ?? '', $matches);
-        $v = $matches[0];
+        $v = explode(' as ', $parameters)[0];
 
         $code = "<?php ";
         $code .= "if (!empty($v)) { ";
