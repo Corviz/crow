@@ -75,12 +75,13 @@ abstract class Component
      *
      * @return void
      */
-    protected function view(string $file, array $data = []): void
+    protected function view(string $file, array $data = [], $extension = null): void
     {
         $data = $data + get_object_vars($this) + [
             'contents' => $this->getContents(),
             'attributes' => $this->getAttributes(),
         ];
+        $extension ??= $this->extension;
         $oldExt = Crow::getExtension();
 
         Crow::setExtension($this->extension);
