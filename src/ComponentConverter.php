@@ -155,7 +155,7 @@ class ComponentConverter
     {
         $pieces = explode('.', substr($componentTagName, 2));
         $className = $this->dashToUpperCamelCase(array_pop($pieces));
-        $namespace = $this->namespacesMap['default'];
+        $namespace = $this->namespacesMap['default'] ?? '';
 
         if (!empty($pieces)) {
             do {
@@ -170,6 +170,6 @@ class ComponentConverter
             } while(!empty($pieces));
         }
 
-        return !empty($namespace) ? "\\$namespace\\$className" : "\\$className";
+        return !empty($namespace) ? "\\{$namespace}\\{$className}" : "\\{$className}";
     }
 }
