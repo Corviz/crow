@@ -12,7 +12,8 @@ class ClassMethod extends \Corviz\Crow\Method
     {
         $code = 'class="<?php ';
         $code .= "foreach($parameters as \$__cclassname => \$__ccheck) {";
-        $code .= 'if ($__ccheck) echo $__cclassname, \' \'; ';
+        $code .= 'if (is_bool($__ccheck) and $__ccheck) { echo $__cclassname, \' \'; } ';
+        $code .= 'else if (is_numeric($__cclassname)) { echo $__ccheck, \' \'; } ';
         $code .= '} ?>"';
         return $code;
     }
