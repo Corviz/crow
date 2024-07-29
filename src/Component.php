@@ -4,88 +4,83 @@ namespace Corviz\Crow;
 
 use Corviz\Crow\Traits\SelfCreate;
 
-abstract class Component
-{
-    use SelfCreate;
+abstract class Component {
+  use SelfCreate;
 
-    /**
-     * @var string|null
-     */
-    protected ?string $templatesPath = null;
+  /**
+   * @var string|null
+   */
+  protected ?string $templatesPath = null;
 
-    /**
-     * @var string|null
-     */
-    protected ?string $extension = Crow::DEFAULT_EXTENSION;
+  /**
+   * @var string|null
+   */
+  protected ?string $extension = Crow::DEFAULT_EXTENSION;
 
-    /**
-     * @var array
-     */
-    private array $attributes = [];
+  /**
+   * @var array
+   */
+  private array $attributes = [];
 
-    /**
-     * @var string|null
-     */
-    private ?string $contents = null;
+  /**
+   * @var string|null
+   */
+  private ?string $contents = null;
 
-    /**
-     * @return array
-     */
-    public function getAttributes(): array
-    {
-        return $this->attributes;
-    }
+  /**
+   * @return array
+   */
+  public function getAttributes(): array {
+    return $this->attributes;
+  }
 
-    /**
-     * @return string|null
-     */
-    public function getContents(): ?string
-    {
-        return $this->contents;
-    }
+  /**
+   * @return string|null
+   */
+  public function getContents(): ?string {
+    return $this->contents;
+  }
 
-    /**
-     * @param array $attributes
-     * @return Component
-     */
-    public function setAttributes(array $attributes): Component
-    {
-        $this->attributes = $attributes;
-        return $this;
-    }
+  /**
+   * @param array $attributes
+   * @return Component
+   */
+  public function setAttributes(array $attributes): Component {
+    $this->attributes = $attributes;
+    return $this;
+  }
 
-    /**
-     * @param string|null $contents
-     * @return Component
-     */
-    public function setContents(?string $contents): Component
-    {
-        $this->contents = $contents;
-        return $this;
-    }
+  /**
+   * @param string|null $contents
+   * @return Component
+   */
+  public function setContents(?string $contents): Component {
+    $this->contents = $contents;
+    return $this;
+  }
 
-    /**
-     * @return void
-     */
-    abstract public function render(): void;
+  /**
+   * @return void
+   */
+  abstract public function render(): void;
 
-    /**
-     * @param string $file
-     * @param array $data
-     *
-     * @return void
-     */
-    protected function view(string $file, array $data = [], $extension = null): void
-    {
-        $data = $data + get_object_vars($this) + [
-            'contents' => $this->getContents(),
-            'attributes' => $this->getAttributes(),
-        ];
-        $extension ??= $this->extension;
-        $oldExt = Crow::getExtension();
+  /**
+   * @param string $file
+   * @param array $data
+   *
+   * @return void
+   */
+  protected function view(string $file, array $data = [], $extension = null): void {
+    $data = $data + get_object_vars($this) + [
+      'contents' => $this->getContents(),
+      'attributes' => $this->getAttributes(),
+    ];
 
-        Crow::setExtension($this->extension);
-        Crow::render($file, $data, $this->templatesPath);
-        Crow::setExtension($oldExt);
-    }
+    $extension ??= $this->extension;
+    $oldExt = Crow::getExtension();
+    
+    Crow::setExtension($extension);
+    Crow::render($file, $data, $this->templatesPath);
+    Crow::setExtension($oldExt);
+  }
 }
