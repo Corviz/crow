@@ -1,14 +1,14 @@
 <?php
 
-namespace Corviz\Crow\Methods\Isset;
+namespace Corviz\Crow\Methods\ForeachUtil;
 
 use Corviz\Crow\Method;
 
-class EndIssetMethod extends Method {
+class ForeachMethod extends Method {
   /**
    * @inheritDoc
    */
   public function toPhpCode(?string $parameters = null): string {
-    return "<?php } ?>";
+    return "<?php foreach({$parameters}) { ?>";
   }
 }

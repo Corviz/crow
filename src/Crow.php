@@ -16,20 +16,20 @@ class Crow {
    * @const DEFAULT_METHODS
    */
   private const DEFAULT_METHODS = [
-    'empty' => Methods\Empty\EmptyMethod::class,
-    'endempty' => Methods\Empty\EndEmptyMethod::class,
+    'empty' => Methods\EmptyUtil\EmptyMethod::class,              // // (Empty) itself causes error, so decided to suffix it.
+    'endempty' => Methods\EmptyUtil\EndEmptyMethod::class,        // // (Empty) itself causes error, so decided to suffix it.
     'for' => Methods\For\ForMethod::class,
     'endfor' => Methods\For\EndForMethod::class,
-    'foreach' => Methods\Foreach\ForeachMethod::class,
-    'endforeach' => Methods\Foreach\EndForeachMethod::class,
+    'foreach' => Methods\ForeachUtil\ForeachMethod::class,        // // (Foreach) itself causes error, so decided to suffix it.
+    'endforeach' => Methods\ForeachUtil\EndForeachMethod::class,  // // (Foreach) itself causes error, so decided to suffix it.
     'forelse' => Methods\Forelse\ForelseMethod::class,
     'endforelse' => Methods\Forelse\EndforelseMethod::class,
     'if' => Methods\If\IfMethod::class,
     'else' => Methods\If\ElseMethod::class,
     'elseif' => Methods\If\ElseIfMethod::class,
     'endif' => Methods\If\EndIfMethod::class,
-    'isset' => Methods\Isset\IssetMethod::class,
-    'endisset' => Methods\Isset\EndIssetMethod::class,
+    'isset' => Methods\IssetUtil\IssetMethod::class,              // // (Isset) itself causes error, so decided to suffix it.
+    'endisset' => Methods\IssetUtil\EndIssetMethod::class,        // // (Isset) itself causes error, so decided to suffix it.
     'php' => Methods\Php\PhpMethod::class,
     'endphp' => Methods\Php\EndPhpMethod::class,
     'section' => Methods\Section\SectionMethod::class,

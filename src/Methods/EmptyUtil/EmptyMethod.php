@@ -1,6 +1,6 @@
 <?php
 
-namespace Corviz\Crow\Methods\Empty;
+namespace Corviz\Crow\Methods\EmptyUtil;
 
 use Corviz\Crow\Crow;
 use Corviz\Crow\Method;

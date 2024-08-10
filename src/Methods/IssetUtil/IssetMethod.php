@@ -1,6 +1,6 @@
 <?php
 
-namespace Corviz\Crow\Methods\Isset;
+namespace Corviz\Crow\Methods\IssetUtil;
 
 use Corviz\Crow\Method;
 

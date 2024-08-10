@@ -1,6 +1,6 @@
 <?php
 
-namespace Corviz\Crow\Methods\Foreach;
+namespace Corviz\Crow\Methods\ForeachUtil;
 
 use Corviz\Crow\Method;
 
