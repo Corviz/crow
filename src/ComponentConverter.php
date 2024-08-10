@@ -116,18 +116,18 @@ class ComponentConverter {
     $code = '[';
 
     if (!is_null($componentAttrs)) {
-      $re = '/((:?)((\w|-)+))(="((?:[^"]++|\g<4>)(.*?))")?/s';
+      // $re = '/((:?)((\w|-)+))(="((?:[^"]++|\g<4>)(.*?))")?/s'; // origin regex
+      $re = '/((:?)((\w|-)+))=["\']((?:[^"\'\\\\]|\\\\.)*?)["\']/s';
 
       preg_match_all($re, $componentAttrs, $matches, PREG_SET_ORDER);
 
       foreach ($matches as $match) {
-        $index = $this->dashToCamelCase($match[3]);
-        $value = 'true';
-        $isString = empty($match[2]);
+        $index = $match[3]; //$this->dashToCamelCase($match[3]);
+        $value = "''";
 
-        if (!empty($match[6])) {
-          $value = $match[6];
-          $value = $isString ? "'{$value}'" : $value;
+        if (!empty($match[5])) {
+          $value = $match[5];
+          $value = empty($match[2]) ? "'{$value}'" : $value;
         }
 
         $code .= "'$index' => $value,";

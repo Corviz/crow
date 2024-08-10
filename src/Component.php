@@ -41,6 +41,12 @@ abstract class Component {
     return $this->contents;
   }
 
+  protected function getAttributesParsed() {
+    $attrs = "";
+    foreach ($this->getAttributes() as $a => $v) { $attrs .= "{$a}='{$v}' "; }
+    return $attrs;
+  }
+
   /**
    * @param array $attributes
    * @return Component
@@ -72,8 +78,9 @@ abstract class Component {
    */
   protected function view(string $file, array $data = [], $extension = null): void {
     $data = $data + get_object_vars($this) + [
-      'contents' => $this->getContents(),
-      'attributes' => $this->getAttributes(),
+      'contents'          => $this->getContents(),
+      'attributes'        => $this->getAttributes(),
+      'attributesParsed'  => $this->getAttributesParsed(),
     ];
 
     $extension ??= $this->extension;
