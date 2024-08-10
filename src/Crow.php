@@ -30,6 +30,8 @@ class Crow {
     'endif' => Methods\If\EndIfMethod::class,
     'isset' => Methods\IssetUtil\IssetMethod::class,              // // (Isset) itself causes error, so decided to suffix it.
     'endisset' => Methods\IssetUtil\EndIssetMethod::class,        // // (Isset) itself causes error, so decided to suffix it.
+    'notisset' => Methods\NotIsset\NotIssetMethod::class,
+    'endnotisset' => Methods\NotIsset\EndNotIssetMethod::class,
     'php' => Methods\Php\PhpMethod::class,
     'endphp' => Methods\Php\EndPhpMethod::class,
     'section' => Methods\Section\SectionMethod::class,
