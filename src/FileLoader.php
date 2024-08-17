@@ -79,8 +79,8 @@ class FileLoader {
     $path ??= $this->defaultPath ?? '';
     $extension = $this->extension ?? '';
     $extension = str_starts_with($extension, '.') ? substr($extension, 1) : $extension;
-    $extension = str_ends_with($extension, '.php') ? rtrim($extension, '.php') : $extension;
+    $extension = str_ends_with($extension, '.php') ? '.' . rtrim($extension, '.php') : $extension;
 
-    return "{$path}/{$file}.{$extension}.php";
+    return "{$path}/{$file}{$extension}.php";
   }
 }
