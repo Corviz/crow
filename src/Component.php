@@ -85,7 +85,7 @@ abstract class Component {
 
     $extension ??= $this->extension;
     $oldExt = Crow::getExtension();
-    
+
     Crow::setExtension($extension);
     Crow::render($file, $data, $this->templatesPath);
     Crow::setExtension($oldExt);

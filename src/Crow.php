@@ -97,6 +97,22 @@ class Crow {
   private static array $renderQueue = [];
 
   /**
+   * Globalize main object instance
+   * @var object
+   */
+  public static $global = [];
+
+  /**
+   * Globalize array of variables
+   * @var array
+   */
+  public static $viewbag = [];
+
+  public static function setViewbag(array $viewbag): void {
+    self::$viewbag = [... self::$viewbag, ...$viewbag];
+  }
+
+  /**
    * @param string $file
    * @param array $data
    * @param string|null $path
@@ -135,10 +151,12 @@ class Crow {
       }
 
       extract($data);
+      extract(self::$viewbag);
       eval ("?>$__crowTemplateCode<?php");
     }
     else {
       extract($data);
+      extract(self::$viewbag);
       require $cacheFile;
     }
   }
