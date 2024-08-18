@@ -116,21 +116,16 @@ class ComponentConverter {
     $code = '[';
 
     if (!is_null($componentAttrs)) {
-      // $re = '/((:?)((\w|-)+))(="((?:[^"]++|\g<4>)(.*?))")?/s'; // origin regex
-      $re = '/((:?)((\w|-)+))=["\']((?:[^"\'\\\\]|\\\\.)*?)["\']/s';
+      $re = '/(:?\w+)(=("[^"]+"))?/s';
 
       preg_match_all($re, $componentAttrs, $matches, PREG_SET_ORDER);
 
       foreach ($matches as $match) {
-        $index = $match[3]; //$this->dashToCamelCase($match[3]);
-        $value = "''";
+        $has_placeholder = str_starts_with($match[1], ':');
+        $index = $has_placeholder ? substr($match[1], 1) : $match[1]; // $this->dashToCamelCase($match[1]);
+        $value = $match[3] ? ($has_placeholder ? trim($match[3], "\"'") : $match[3]) : "''";
 
-        if (!empty($match[5])) {
-          $value = $match[5];
-          $value = empty($match[2]) ? "'{$value}'" : $value;
-        }
-
-        $code .= "'$index' => $value,";
+        $code .= "'$index' => $value, ";
       }
     }
 
