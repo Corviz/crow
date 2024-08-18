@@ -43,7 +43,12 @@ abstract class Component {
 
   protected function getAttributesParsed() {
     $attrs = "";
-    foreach ($this->getAttributes() as $a => $v) { $attrs .= "{$a}='{$v}' "; }
+
+    foreach ($this->getAttributes() as $a => $v) {
+      $v = in_array(gettype($v), ["array","object"]) ? json_encode($v, JSON_UNESCAPED_UNICODE) : $v;
+      $attrs .= "{$a}='{$v}' ";
+    }
+
     return $attrs;
   }
 
