@@ -64,7 +64,8 @@ final class CodeConverter {
    */
   private function convertComments(string &$templateCode): void {
     $templateCode = preg_replace(
-      '/{{--(.*?)--}}/',
+      // '/{{--(.*?)--}}/',
+      '/({{--.?)((.|\n)*)(.?--}})/',
       '<?php /** $1 */ ?>',
       $templateCode
     );
