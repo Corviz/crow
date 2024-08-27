@@ -1,14 +1,14 @@
 <?php
 
-namespace Corviz\Crow\Methods\Php;
+namespace Corviz\Crow\Methods\NotIsset;
 
 use Corviz\Crow\Method;
 
-class EndPhpMethod extends Method {
+class NotIssetMethod extends Method {
   /**
    * @inheritDoc
    */
   public function toPhpCode(?string $parameters = null): string {
-    return " ?>";
+    return "<?php if (!isset({$parameters})) { ?>";
   }
 }

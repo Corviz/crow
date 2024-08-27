@@ -1,14 +1,14 @@
 <?php
 
-namespace Corviz\Crow\Methods\Php;
+namespace Corviz\Crow\Methods\EmptyUtil;
 
 use Corviz\Crow\Method;
 
-class EndPhpMethod extends Method {
+class EndEmptyMethod extends Method {
   /**
    * @inheritDoc
    */
   public function toPhpCode(?string $parameters = null): string {
-    return " ?>";
+    return "<?php } ?>";
   }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Corviz\Crow\Methods\Php;
+namespace Corviz\Crow\Methods\ForeachUtil;
 
 use Corviz\Crow\Method;
 
-class EndPhpMethod extends Method {
+class EndForeachMethod extends Method {
   /**
    * @inheritDoc
    */
   public function toPhpCode(?string $parameters = null): string {
-    return " ?>";
+    return "<?php } ?>";
   }
 }
