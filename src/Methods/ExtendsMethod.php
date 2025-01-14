@@ -14,6 +14,7 @@ class ExtendsMethod extends Method
     {
         eval('$parameters = '.$parameters.';');
         Crow::queueTemplate($parameters);
+
         return '';
     }
 }

@@ -22,8 +22,10 @@ class ComponentConverter
     /**
      * @param string $namespace
      * @param string $prefix
-     * @return ComponentConverter
+     *
      * @throws Exception
+     *
+     * @return ComponentConverter
      */
     public function addComponentsNamespace(string $namespace, string $prefix = 'default'): ComponentConverter
     {
@@ -32,6 +34,7 @@ class ComponentConverter
         }
 
         $this->namespacesMap[$prefix] = trim($namespace, '\\');
+
         return $this;
     }
 
@@ -56,8 +59,8 @@ class ComponentConverter
             $count = 0;
             $template = preg_replace_callback(
                 '/<(x-[\w.-]+)([^\/>]*?)(\/>|>((?:(?!<\/?\1\b).|(?R))*)<\/\1>)/s',
-                function($match) {
-                    $code = "";
+                function ($match) {
+                    $code = '';
                     $componentClassName = $this->getComponentClass($match[1]);
                     $contents = $match[4] ?? null;
 
@@ -67,14 +70,14 @@ class ComponentConverter
                         if ($contents) {
                             $code .= "<?php ob_start(); ?>$contents<?php \$__componentContents = ob_get_contents(); ob_end_clean(); ?>";
                         }
-                        $code .= "<?php ";
+                        $code .= '<?php ';
                         $code .= "\$__component = $componentClassName::create()";
                         $code .= "->setAttributes($attrsArrayCode)";
                         if ($contents) {
-                            $code .= "->setContents(\$__componentContents)";
+                            $code .= '->setContents($__componentContents)';
                         }
-                        $code .= "->render();";
-                        $code .= " ?>";
+                        $code .= '->render();';
+                        $code .= ' ?>';
                     } else {
                         $code .= "Component class not found: $componentClassName";
                     }
@@ -104,7 +107,7 @@ class ComponentConverter
      */
     private function dashToCamelCase(string $str): string
     {
-        return preg_replace_callback('/-(\w)/', function($match){
+        return preg_replace_callback('/-(\w)/', function ($match) {
             return mb_strtoupper($match[1]);
         }, $str);
     }
@@ -119,7 +122,6 @@ class ComponentConverter
         $code = '[';
 
         if (!is_null($componentAttrs)) {
-
             $re = '/((:?)((\w|-)+))(="((?:[^"]++|\g<4>)(.*?))")?/s';
 
             preg_match_all($re, $componentAttrs, $matches, PREG_SET_ORDER);
@@ -167,7 +169,7 @@ class ComponentConverter
                 }
 
                 $className = $this->dashToUpperCamelCase(array_pop($pieces)).'\\'.$className;
-            } while(!empty($pieces));
+            } while (!empty($pieces));
         }
 
         return !empty($namespace) ? "\\$namespace\\$className" : "\\$className";

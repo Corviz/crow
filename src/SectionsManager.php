@@ -10,7 +10,7 @@ class SectionsManager
     private static array $sections = [];
 
     /**
-     * @param string $index
+     * @param string   $index
      * @param callable $section
      *
      * @return void
@@ -22,6 +22,7 @@ class SectionsManager
 
     /**
      * @param string $index
+     *
      * @return void
      */
     public static function renderSection(string $index)

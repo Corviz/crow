@@ -15,7 +15,7 @@ class EmptyMethod extends Method
         $code = "<?php if (empty($parameters)) { ?>";
 
         if (Crow::data('forelse')) {
-            $code = "<?php }} else { ?>";
+            $code = '<?php }} else { ?>';
             Crow::removeData('forelse');
         }
 

@@ -46,21 +46,25 @@ abstract class Component
 
     /**
      * @param array $attributes
+     *
      * @return Component
      */
     public function setAttributes(array $attributes): Component
     {
         $this->attributes = $attributes;
+
         return $this;
     }
 
     /**
      * @param string|null $contents
+     *
      * @return Component
      */
     public function setContents(?string $contents): Component
     {
         $this->contents = $contents;
+
         return $this;
     }
 
@@ -71,14 +75,14 @@ abstract class Component
 
     /**
      * @param string $file
-     * @param array $data
+     * @param array  $data
      *
      * @return void
      */
     protected function view(string $file, array $data = []): void
     {
         $data = $data + get_object_vars($this) + [
-            'contents' => $this->getContents(),
+            'contents'   => $this->getContents(),
             'attributes' => $this->getAttributes(),
         ];
         $oldExt = Crow::getExtension();

@@ -11,6 +11,6 @@ class DefaultMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        return "<?php default: ?>";
+        return '<?php default: ?>';
     }
 }
