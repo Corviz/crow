@@ -11,6 +11,6 @@ class ElseMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        return "<?php } else { ?>";
+        return '<?php } else { ?>';
     }
 }

@@ -18,7 +18,7 @@ class SectionMethod extends Method
 
         if (count($p) > 1) {
             $code .= $p[1];
-            $code .= "<?php }); ?>";
+            $code .= '<?php }); ?>';
         }
 
         return $code;
@@ -33,7 +33,7 @@ class SectionMethod extends Method
 
         $dataKeys = Crow::data('dataKeys') ?? [];
         if (!empty($dataKeys)) {
-            $use = 'use ('.implode(',', array_map(fn($k) => "&$$k", $dataKeys)).')';
+            $use = 'use ('.implode(',', array_map(fn ($k) => "&$$k", $dataKeys)).')';
         }
 
         return $use;

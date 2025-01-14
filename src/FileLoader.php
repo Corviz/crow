@@ -28,8 +28,9 @@ class FileLoader
     }
 
     /**
-     * @param string $file
+     * @param string      $file
      * @param string|null $path
+     *
      * @return int|false
      */
     public function getModificationTime(string $file, string $path = null): int|false
@@ -38,12 +39,12 @@ class FileLoader
     }
 
     /**
-     *
-     * @param string $file
+     * @param string      $file
      * @param string|null $path
      *
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public function load(string $file, string $path = null): string
     {
@@ -58,27 +59,32 @@ class FileLoader
 
     /**
      * @param string|null $defaultPath
+     *
      * @return FileLoader
      */
     public function setDefaultPath(?string $defaultPath): FileLoader
     {
         $this->defaultPath = $defaultPath;
+
         return $this;
     }
 
     /**
      * @param string|null $extension
+     *
      * @return FileLoader
      */
     public function setExtension(?string $extension): FileLoader
     {
         $this->extension = $extension;
+
         return $this;
     }
 
     /**
-     * @param string $file
+     * @param string      $file
      * @param string|null $path
+     *
      * @return string
      */
     private function getFilePath(string $file, string $path = null)

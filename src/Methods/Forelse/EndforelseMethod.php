@@ -11,6 +11,6 @@ class EndforelseMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        return "<?php } ?>";
+        return '<?php } ?>';
     }
 }

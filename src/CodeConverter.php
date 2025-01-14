@@ -16,8 +16,8 @@ final class CodeConverter
      */
     public function toPhp(string $templateCode): string
     {
-        while($this->convertMethods($templateCode, 'extends|include'));
-        while($this->convertMethods($templateCode));
+        while ($this->convertMethods($templateCode, 'extends|include'));
+        while ($this->convertMethods($templateCode));
         $this->convertComments($templateCode);
         $this->convertEscaped($templateCode);
         $this->convertUnescaped($templateCode);
@@ -52,6 +52,7 @@ final class CodeConverter
 
     /**
      * @param string $templateCode
+     *
      * @return void
      */
     private function convertUnescaped(string &$templateCode): void
@@ -65,6 +66,7 @@ final class CodeConverter
 
     /**
      * @param string $templateCode
+     *
      * @return void
      */
     private function convertComments(string &$templateCode): void
@@ -78,6 +80,7 @@ final class CodeConverter
 
     /**
      * @param string $templateCode
+     *
      * @return int
      */
     private function convertMethods(string &$templateCode, string $tag = null): int
@@ -95,7 +98,7 @@ final class CodeConverter
 
         $templateCode = preg_replace_callback(
             '/@('.$tag.')\s*(\(((?:[^()]++|(\g<2>))*)\))?/m',
-            function($match){
+            function ($match) {
                 if (isset($this->methods[$match[1]])) {
                     if (!$this->methods[$match[1]]['i']) {
                         $this->methods[$match[1]]['i'] = $this->methods[$match[1]]['c']::create();

@@ -16,7 +16,7 @@ class ForelseMethod extends Method
         preg_match('/\$\w+/m', $parameters ?? '', $matches);
         $v = $matches[0];
 
-        $code = "<?php ";
+        $code = '<?php ';
         $code .= "if (!empty($v)) { ";
         $code .= "foreach($parameters) { ?>";
 

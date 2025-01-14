@@ -3,56 +3,49 @@
 namespace Corviz\Crow;
 
 use Closure;
-use Corviz\Crow\Methods;
 use Exception;
 
 class Crow
 {
-    /**
-     *
-     */
     public const DEFAULT_EXTENSION = '.crow.php';
 
-    /**
-     *
-     */
     private const DEFAULT_METHODS = [
-        'empty' => Methods\Empty\EmptyMethod::class,
-        'endempty' => Methods\Empty\EndEmptyMethod::class,
-        'for' => Methods\For\ForMethod::class,
-        'endfor' => Methods\For\EndForMethod::class,
-        'foreach' => Methods\Foreach\ForeachMethod::class,
+        'empty'      => Methods\Empty\EmptyMethod::class,
+        'endempty'   => Methods\Empty\EndEmptyMethod::class,
+        'for'        => Methods\For\ForMethod::class,
+        'endfor'     => Methods\For\EndForMethod::class,
+        'foreach'    => Methods\Foreach\ForeachMethod::class,
         'endforeach' => Methods\Foreach\EndForeachMethod::class,
-        'forelse' => Methods\Forelse\ForelseMethod::class,
+        'forelse'    => Methods\Forelse\ForelseMethod::class,
         'endforelse' => Methods\Forelse\EndforelseMethod::class,
-        'if' => Methods\If\IfMethod::class,
-        'else' => Methods\If\ElseMethod::class,
-        'elseif' => Methods\If\ElseIfMethod::class,
-        'endif' => Methods\If\EndIfMethod::class,
-        'isset' => Methods\Isset\IssetMethod::class,
-        'endisset' => Methods\Isset\EndIssetMethod::class,
-        'php' => Methods\Php\PhpMethod::class,
-        'endphp' => Methods\Php\EndPhpMethod::class,
-        'section' => Methods\Section\SectionMethod::class,
+        'if'         => Methods\If\IfMethod::class,
+        'else'       => Methods\If\ElseMethod::class,
+        'elseif'     => Methods\If\ElseIfMethod::class,
+        'endif'      => Methods\If\EndIfMethod::class,
+        'isset'      => Methods\Isset\IssetMethod::class,
+        'endisset'   => Methods\Isset\EndIssetMethod::class,
+        'php'        => Methods\Php\PhpMethod::class,
+        'endphp'     => Methods\Php\EndPhpMethod::class,
+        'section'    => Methods\Section\SectionMethod::class,
         'endsection' => Methods\Section\EndSectionMethod::class,
-        'case' => Methods\Switch\CaseMethod::class,
-        'default' => Methods\Switch\DefaultMethod::class,
-        'endswitch' => Methods\Switch\EndSwitchMethod::class,
-        'switch' => Methods\Switch\SwitchMethod::class,
-        'unless' => Methods\Unless\UnlessMethod::class,
-        'endunless' => Methods\Unless\EndUnlessMethod::class,
-        'while' => Methods\While\WhileMethod::class,
-        'endwhile' => Methods\While\EndWhileMethod::class,
-        'break' => Methods\BreakMethod::class,
-        'checked' => Methods\CheckedMethod::class,
-        'class' => Methods\ClassMethod::class,
-        'continue' => Methods\ContinueMethod::class,
-        'disabled' => Methods\DisabledMethod::class,
-        'extends' => Methods\ExtendsMethod::class,
-        'include' => Methods\IncludeMethod::class,
-        'readonly' => Methods\ReadonlyMethod::class,
-        'selected' => Methods\SelectedMethod::class,
-        'yield' => Methods\YieldMethod::class,
+        'case'       => Methods\Switch\CaseMethod::class,
+        'default'    => Methods\Switch\DefaultMethod::class,
+        'endswitch'  => Methods\Switch\EndSwitchMethod::class,
+        'switch'     => Methods\Switch\SwitchMethod::class,
+        'unless'     => Methods\Unless\UnlessMethod::class,
+        'endunless'  => Methods\Unless\EndUnlessMethod::class,
+        'while'      => Methods\While\WhileMethod::class,
+        'endwhile'   => Methods\While\EndWhileMethod::class,
+        'break'      => Methods\BreakMethod::class,
+        'checked'    => Methods\CheckedMethod::class,
+        'class'      => Methods\ClassMethod::class,
+        'continue'   => Methods\ContinueMethod::class,
+        'disabled'   => Methods\DisabledMethod::class,
+        'extends'    => Methods\ExtendsMethod::class,
+        'include'    => Methods\IncludeMethod::class,
+        'readonly'   => Methods\ReadonlyMethod::class,
+        'selected'   => Methods\SelectedMethod::class,
+        'yield'      => Methods\YieldMethod::class,
     ];
 
     /**
@@ -96,11 +89,12 @@ class Crow
     private static array $renderQueue = [];
 
     /**
-     * @param string $file
-     * @param array $data
+     * @param string      $file
+     * @param array       $data
      * @param string|null $path
      *
      * @throws Exception
+     *
      * @return void
      */
     public static function render(string $file, array $data = [], ?string $path = null)
@@ -143,10 +137,12 @@ class Crow
     }
 
     /**
-     * @param string $namespace
+     * @param string      $namespace
      * @param string|null $prefix
-     * @return void
+     *
      * @throws Exception
+     *
+     * @return void
      */
     public static function addComponentsNamespace(string $namespace, string $prefix = null): void
     {
@@ -172,19 +168,22 @@ class Crow
 
     /**
      * @param string|null $key
-     * @param mixed|null $value
+     * @param mixed|null  $value
      *
      * @return mixed
      */
     public static function data(string $key = null, mixed $value = null): mixed
     {
-        if (is_null($key) && is_null($value))
+        if (is_null($key) && is_null($value)) {
             return self::$data;
+        }
 
-        if (is_null($value))
+        if (is_null($value)) {
             return self::$data[$key] ?? null;
+        }
 
         self::$data[$key] = $value;
+
         return null;
     }
 
@@ -203,8 +202,9 @@ class Crow
      */
     public static function removeData(string $key): void
     {
-        if (isset(self::$data[$key]))
+        if (isset(self::$data[$key])) {
             unset(self::$data[$key]);
+        }
     }
 
     /**
@@ -216,11 +216,12 @@ class Crow
     }
 
     /**
-     * @param string $file
+     * @param string      $file
      * @param string|null $path
      *
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public static function getPhpCode(string $file, ?string $path = null): string
     {
@@ -242,11 +243,12 @@ class Crow
     }
 
     /**
-     * @param string $file
+     * @param string      $file
      * @param string|null $path
      *
-     * @return string
      * @throws Exception
+     *
+     * @return string
      */
     public static function getTemplateContents(string $file, ?string $path = null): string
     {
@@ -263,8 +265,10 @@ class Crow
 
     /**
      * @param string $namespace
-     * @return void
+     *
      * @throws Exception
+     *
+     * @return void
      */
     public static function setComponentsNamespace(string $namespace)
     {
@@ -273,6 +277,7 @@ class Crow
 
     /**
      * @param string $path
+     *
      * @return void
      */
     public static function setDefaultPath(string $path)
@@ -282,6 +287,7 @@ class Crow
 
     /**
      * @param string $extension
+     *
      * @return void
      */
     public static function setExtension(string $extension)
@@ -300,7 +306,7 @@ class Crow
     }
 
     /**
-     * @param string $file
+     * @param string      $file
      * @param string|null $path
      *
      * @return void
@@ -312,6 +318,7 @@ class Crow
 
     /**
      * @param string|null $path
+     *
      * @return string
      */
     private static function generatePathHash(?string $path): string
@@ -331,7 +338,7 @@ class Crow
      */
     private static function getCodeConverter(): CodeConverter
     {
-        if (!self::$codeConverter){
+        if (!self::$codeConverter) {
             self::$codeConverter = new CodeConverter();
 
             //Register all default methods
@@ -348,7 +355,7 @@ class Crow
      */
     private static function getComponentConverter(): ComponentConverter
     {
-        if (!self::$componentConverter){
+        if (!self::$componentConverter) {
             self::$componentConverter = new ComponentConverter();
         }
 
@@ -370,12 +377,14 @@ class Crow
 
     /**
      * @param string $code
+     *
      * @return string
      */
     private static function minify(string &$code): void
     {
-        if (self::data('options.disable-minifying'))
+        if (self::data('options.disable-minifying')) {
             return;
+        }
 
         $code = str_replace(["\t", "\n", "\r"], ' ', $code);
         $code = preg_replace('/\s{2,}/m', ' ', $code);

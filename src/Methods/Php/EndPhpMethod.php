@@ -11,6 +11,6 @@ class EndPhpMethod extends Method
      */
     public function toPhpCode(?string $parameters = null): string
     {
-        return " ?>";
+        return ' ?>';
     }
 }
