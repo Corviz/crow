@@ -370,6 +370,7 @@ class Crow {
 
     $code = str_replace(["\t", "\n", "\r"], ' ', $code);
     $code = preg_replace('/\s{2,}/m', ' ', $code);
+    $code = str_replace('?> <?php', '', $code);
     $code = trim($code);
   }
 }
